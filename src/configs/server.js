@@ -3,4 +3,4 @@
 * Email: nayunhwan.dev@gmail.com
 */
 
-export const ServerEndPoint = "http://localhost:8080/";
+export const SERVER_END_POINT = "http://localhost:8080/";
