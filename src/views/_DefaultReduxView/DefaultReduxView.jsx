@@ -1,8 +1,8 @@
 // This Page is Skeleton of React Structure for Web Development
 // If you want to make other page, Copy and Refactor this page.
 
-import React, { Component, } from "react";
-import { connect, } from "react-redux";
+import React, { Component } from "react";
+import { connect } from "react-redux";
 import nprogress from "nprogress";
 
 import * as DefaultActionCreator from "../../actionCreators/_DefaultActionCreator";

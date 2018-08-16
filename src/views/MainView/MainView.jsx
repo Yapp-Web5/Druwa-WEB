@@ -4,7 +4,7 @@
 import React, { Component } from "react";
 import * as socketIO from "socket.io-client";
 import { connect } from "react-redux";
-import { ServerEndPoint } from "../../configs/server";
+import { SERVER_END_POINT } from "../../configs/server";
 
 const defaultProps = {};
 const propTypes = {};
@@ -15,7 +15,7 @@ const mapStateToProps = state => {
 
 class MainView extends Component {
   componentDidMount() {
-    socketIO(ServerEndPoint);
+    socketIO(SERVER_END_POINT);
   }
   render() {
     return <div>This is Default Redux Page</div>;

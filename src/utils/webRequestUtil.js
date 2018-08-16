@@ -3,13 +3,13 @@
 * Email: nayunhwan.dev@gmail.com
 */
 
-import { ServerEndPoint } from "../configs/server";
+import { SERVER_END_POINT } from "../configs/server";
 import axios from "axios";
 
 const basicRequest = (type, { url, headers, body }) => {
   const config = {
     method: type,
-    url: ServerEndPoint + url,
+    url: SERVER_END_POINT + url,
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",

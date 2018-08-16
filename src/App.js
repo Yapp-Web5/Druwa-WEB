@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { Route, withRouter } from "react-router-dom";
+import { Route, Switch, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { MainView } from "./views";
+import { GenerateRoomView, MainView } from "./views";
 
 const mapStateToProps = state => {
   return {};
@@ -16,7 +16,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Route exact path="/" component={MainView} />
+        <Switch>
+          <Route exact path="/" component={MainView} />
+          <Route path="/create" component={GenerateRoomView} />
+        </Switch>
       </div>
     );
   }
