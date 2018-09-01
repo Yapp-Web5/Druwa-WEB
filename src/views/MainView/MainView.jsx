@@ -3,6 +3,8 @@
 
 import React, { Component } from "react";
 import * as socketIO from "socket.io-client";
+import cx from "classnames";
+
 import { connect } from "react-redux";
 
 import { Element } from "react-scroll";
@@ -23,6 +25,14 @@ const mapStateToProps = state => {
 };
 
 class MainView extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      selectedIdx: 0,
+    };
+  }
+
   componentDidMount() {
     socketIO(SERVER_END_POINT);
   }
@@ -31,7 +41,7 @@ class MainView extends Component {
       <div className={styles.mainPage}>
         <NavigationBar />
         <Element name="intro">
-          <section className={styles.header}>
+          <section className={styles.intro}>
             <div className={styles.title}>
               강연, 듣기만 하지말고
               <br />
@@ -52,7 +62,7 @@ class MainView extends Component {
                 <br /> 부여받은 랜덤 닉네임으로 참여하여 강연자, 청취자 분들과
                 소통할 수 있습니다.
               </p>
-              <img src={Pic01} className={styles.pic01} alt="001" />
+              <img src={Pic02} className={styles.pic02} alt="002" />
             </div>
           </section>
         </Element>
@@ -67,8 +77,10 @@ class MainView extends Component {
               그리고 다른 사람의 글에 댓글을 달 수 있기 때문에 Active하게 강연을
               즐길 수 있습니다.
             </p>
+            <img src={Pic01} className={styles.pic01} alt="001" />
           </div>
         </section>
+        {this.renderSelectSelection()}
         <section className={styles.section__left}>
           <div className={styles.content}>
             <div className={styles.number}>03</div>
@@ -87,7 +99,7 @@ class MainView extends Component {
             <img src={Pic02} className={styles.pic02} alt="002" />
           </div>
         </section>
-        <section className={styles.header}>
+        <section className={styles.intro}>
           <div className={styles.title}>
             강연, 듣기만 하지말고
             <br />
@@ -100,6 +112,50 @@ class MainView extends Component {
       </div>
     );
   }
+
+  renderSelectSelection = () => {
+    const { selectedIdx } = this.state;
+    const menus = ["글쓰기", "댓글 달기와 Like", "추천순, 최신순 보기"];
+    return (
+      <section className={styles.selectSelection}>
+        <div className={styles.content}>
+          <ul className={styles.menu}>
+            {menus.map((menu, index) => {
+              return (
+                <li
+                  key={`${menu}__${index}`}
+                  className={cx(styles.menu__item, {
+                    [styles.active]: index === selectedIdx,
+                  })}
+                  onClick={this.handleClickSelectMenu(index)}
+                >
+                  <div className={styles.circle__small} />
+                  <p className={styles.description}>{menu}</p>
+                </li>
+              );
+            })}
+          </ul>
+          <ul className={styles.bars}>
+            {menus.map((menu, index) => {
+              return (
+                <li
+                  className={cx(styles.bars__bar, {
+                    [styles.active]: index === selectedIdx,
+                  })}
+                />
+              );
+            })}
+          </ul>
+        </div>
+      </section>
+    );
+  };
+
+  handleClickSelectMenu = idx => () => {
+    this.setState({
+      selectedIdx: idx,
+    });
+  };
 }
 
 MainView.defaultProps = defaultProps;

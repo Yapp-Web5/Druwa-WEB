@@ -7,7 +7,7 @@
 @import "../../consts/variables.scss";
 
 .mainPage {
-  .header {
+  .intro {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -35,7 +35,7 @@
       background: $white;
       border-radius: 50px;
       color: $main-color;
-      padding: 0.8rem 1rem;
+      padding: 0.8rem 1.2rem;
       outline: none;
       border: 0;
       margin-top: 3rem;
@@ -45,7 +45,7 @@
   .section__left {
     display: flex;
     justify-content: center;
-    padding: 10rem 0;
+    padding: 12rem 0;
 
     .content {
       width: $content-width;
@@ -80,17 +80,10 @@
         margin-top: 3rem;
       }
 
-      .pic01 {
-        position: absolute;
-        width: 400px;
-        top: -100px;
-        right: 0;
-      }
-
       .pic02 {
         position: absolute;
         width: 500px;
-        top: -100px;
+        top: -200px;
         right: 0;
       }
     }
@@ -99,7 +92,7 @@
   .section__right {
     display: flex;
     justify-content: center;
-    padding: 10rem 0;
+    padding: 12rem 0;
 
     .content {
       width: $content-width;
@@ -132,6 +125,92 @@
 
       .description {
         margin-top: 3rem;
+      }
+
+      .pic01 {
+        position: absolute;
+        width: 400px;
+        top: -100px;
+        left: 0;
+      }
+    }
+  }
+
+  .selectSelection {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    background: $white;
+
+    .content {
+      position: relative;
+      width: $content-width;
+      box-sizing: border-box;
+      // padding: 2rem;
+
+      .menu {
+        display: flex;
+        justify-content: space-between;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        height: 350px;
+
+        &__item {
+          display: inline-flex;
+          align-items: center;
+          flex-direction: column;
+          padding: 2rem;
+          width: 100%;
+          color: $main-color;
+          cursor: pointer;
+          transition: 0.3s;
+
+          &.active {
+            color: $white;
+            background: $main-color;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+
+            .circle__small {
+              background: white;
+            }
+          }
+
+          .circle__small {
+            border-radius: 50%;
+            background: $white-gray;
+            width: 100px;
+            height: 100px;
+          }
+
+          .description {
+            margin-top: 2rem;
+            font-weight: bold;
+          }
+        }
+      }
+
+      .bars {
+        display: flex;
+        justify-content: space-between;
+        width: $content-width;
+        padding: 0;
+        margin: 2rem 0;
+        list-style: none;
+
+        &__bar {
+          display: block;
+          width: 100%;
+          height: 8px;
+          background: $white-gray;
+
+          &.active {
+            background: $main-color;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+          }
+        }
       }
     }
   }
