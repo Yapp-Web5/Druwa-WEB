@@ -1,0 +1,46 @@
+/*
+* Author: @nayunhwan (github.com/nayunhwan)
+* Email: nayunhwan.dev@gmail.com
+*/
+
+@import "../../consts/colors.scss";
+
+.navigationBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  box-sizing: border-box;
+  padding: 0 2rem;
+  background: $main-color;
+  color: $white;
+
+  .left {
+  }
+
+  .right {
+    &__menu {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+
+      &__item {
+        display: inline-block;
+        margin-right: 3rem;
+        text-transform: uppercase;
+        font-weight: bold;
+
+        &:last-child {
+          margin-right: 0;
+        }
+
+        &.highlight {
+          border-radius: 50px;
+          background: white;
+          color: $main-color;
+          padding: 0.8rem;
+        }
+      }
+    }
+  }
+}

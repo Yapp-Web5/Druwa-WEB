@@ -4,6 +4,8 @@
 import React, { Component } from "react";
 import * as socketIO from "socket.io-client";
 import { connect } from "react-redux";
+
+import { NavigationBar } from "../../components";
 import { SERVER_END_POINT } from "../../configs/server";
 
 const defaultProps = {};
@@ -18,7 +20,11 @@ class MainView extends Component {
     socketIO(SERVER_END_POINT);
   }
   render() {
-    return <div>This is Default Redux Page</div>;
+    return (
+      <div>
+        <NavigationBar /> This is Default Redux Page
+      </div>
+    );
   }
 }
 
