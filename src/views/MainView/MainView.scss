@@ -2,3 +2,124 @@
 * Author: @nayunhwan (github.com/nayunhwan)
 * Email: nayunhwan.dev@gmail.com
 */
+
+@import "../../consts/colors.scss";
+@import "../../consts/variables.scss";
+
+.mainPage {
+  .header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 600px;
+
+    .title {
+      font-weight: 100;
+      font-size: 3rem;
+    }
+
+    .logo {
+      color: $main-color;
+      font-family: "Futura", sans-serif;
+      font-weight: 900;
+      font-size: 4rem;
+      margin: 0;
+      margin-top: 1rem;
+    }
+  }
+
+  .section__left {
+    display: flex;
+    justify-content: center;
+    padding: 10rem 0;
+
+    .content {
+      width: $content-width;
+      padding-left: 5rem;
+      position: relative;
+
+      .number {
+        position: absolute;
+        top: -120px;
+        left: 0px;
+        font-size: 10rem;
+        font-weight: 900;
+        color: $number-color;
+        font-family: "Futura", sans-serif;
+        z-index: -100;
+      }
+
+      .title {
+        font-size: 3rem;
+        font-weight: 100;
+        margin: 0;
+      }
+
+      .logo {
+        color: $main-color;
+        font-family: "Futura", sans-serif;
+        font-weight: 900;
+        font-size: 2rem;
+      }
+
+      .description {
+        margin-top: 3rem;
+      }
+
+      .pic01 {
+        position: absolute;
+        width: 400px;
+        top: -100px;
+        right: 0;
+      }
+
+      .pic02 {
+        position: absolute;
+        width: 500px;
+        top: -100px;
+        right: 0;
+      }
+    }
+  }
+
+  .section__right {
+    display: flex;
+    justify-content: center;
+    padding: 10rem 0;
+
+    .content {
+      width: $content-width;
+      text-align: right;
+      position: relative;
+
+      .number {
+        position: absolute;
+        top: -120px;
+        right: 80px;
+        font-size: 10rem;
+        font-weight: 900;
+        color: $number-color;
+        font-family: "Futura", sans-serif;
+        z-index: -100;
+      }
+
+      .title {
+        font-size: 3rem;
+        font-weight: 100;
+        margin: 0;
+      }
+
+      .logo {
+        color: $main-color;
+        font-family: "Futura", sans-serif;
+        font-weight: 900;
+        font-size: 2rem;
+      }
+
+      .description {
+        margin-top: 3rem;
+      }
+    }
+  }
+}
