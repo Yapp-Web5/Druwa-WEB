@@ -1,0 +1,60 @@
+/*
+* Author: @nayunhwan (github.com/nayunhwan)
+* Email: nayunhwan.dev@gmail.com
+*/
+
+@import "../../consts/colors.scss";
+@import "../../consts/variables.scss";
+
+.navigationBar {
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 0 10rem;
+  background: $main-color;
+  color: $white;
+  font-family: "Futura", sans-serif;
+  z-index: 10000;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+
+  .content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+    box-sizing: border-box;
+    width: $content-width;
+
+    .left {
+    }
+
+    .right {
+      &__menu {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        &__item {
+          display: inline-block;
+          margin-right: 3rem;
+          text-transform: uppercase;
+          font-weight: bold;
+          font-family: "Futura", sans-serif;
+
+          &:last-child {
+            margin-right: 0;
+          }
+
+          &.highlight {
+            border-radius: 50px;
+            background: white;
+            color: $main-color;
+            padding: 0.8rem 1.2rem;
+          }
+        }
+      }
+    }
+  }
+}
