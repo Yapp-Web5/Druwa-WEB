@@ -7,6 +7,8 @@
 @import "../../consts/variables.scss";
 
 .navigationBar {
+  position: sticky;
+  top: 0;
   display: flex;
   justify-content: center;
   box-sizing: border-box;
@@ -14,6 +16,8 @@
   background: $main-color;
   color: $white;
   font-family: "Futura", sans-serif;
+  z-index: 10000;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 
   .content {
     display: flex;
