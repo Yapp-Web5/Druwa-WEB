@@ -4,41 +4,50 @@
 */
 
 @import "../../consts/colors.scss";
+@import "../../consts/variables.scss";
 
 .navigationBar {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 80px;
+  justify-content: center;
   box-sizing: border-box;
-  padding: 0 2rem;
+  padding: 0 10rem;
   background: $main-color;
   color: $white;
+  font-family: "Futura", sans-serif;
 
-  .left {
-  }
+  .content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+    box-sizing: border-box;
+    width: $content-width;
 
-  .right {
-    &__menu {
-      margin: 0;
-      padding: 0;
-      list-style: none;
+    .left {
+    }
 
-      &__item {
-        display: inline-block;
-        margin-right: 3rem;
-        text-transform: uppercase;
-        font-weight: bold;
+    .right {
+      &__menu {
+        margin: 0;
+        padding: 0;
+        list-style: none;
 
-        &:last-child {
-          margin-right: 0;
-        }
+        &__item {
+          display: inline-block;
+          margin-right: 3rem;
+          text-transform: uppercase;
+          font-weight: bold;
 
-        &.highlight {
-          border-radius: 50px;
-          background: white;
-          color: $main-color;
-          padding: 0.8rem;
+          &:last-child {
+            margin-right: 0;
+          }
+
+          &.highlight {
+            border-radius: 50px;
+            background: white;
+            color: $main-color;
+            padding: 0.8rem 1.2rem;
+          }
         }
       }
     }

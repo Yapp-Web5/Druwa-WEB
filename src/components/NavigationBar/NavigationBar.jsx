@@ -16,16 +16,18 @@ class NavigationBar extends PureComponent {
   render() {
     return (
       <div className={styles.navigationBar}>
-        <div className={styles.left}>Druwa</div>
-        <div className={styles.right}>
-          <ul className={styles.right__menu}>
-            <li className={styles.right__menu__item}>intro</li>
-            <li className={styles.right__menu__item}>why druwa</li>
-            <li className={styles.right__menu__item}>example</li>
-            <li className={cx(styles.right__menu__item, styles.highlight)}>
-              start now
-            </li>
-          </ul>
+        <div className={styles.content}>
+          <div className={styles.left}>Druwa</div>
+          <div className={styles.right}>
+            <ul className={styles.right__menu}>
+              <li className={styles.right__menu__item}>intro</li>
+              <li className={styles.right__menu__item}>why druwa</li>
+              <li className={styles.right__menu__item}>example</li>
+              <li className={cx(styles.right__menu__item, styles.highlight)}>
+                start now
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     );
