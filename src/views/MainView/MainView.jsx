@@ -87,6 +87,16 @@ class MainView extends Component {
             <img src={Pic02} className={styles.pic02} alt="002" />
           </div>
         </section>
+        <section className={styles.header}>
+          <div className={styles.title}>
+            강연, 듣기만 하지말고
+            <br />
+            이제 실시간 소통하러
+          </div>
+          <h1 className={styles.logo}>DRUWA!</h1>
+          <button className={styles.startBtn}>START NOW</button>
+        </section>
+        <footer />
       </div>
     );
   }
