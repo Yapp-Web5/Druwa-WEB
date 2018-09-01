@@ -11,6 +11,7 @@ import { Element } from "react-scroll";
 
 import Pic01 from "../../static/imgs/001.png";
 import Pic02 from "../../static/imgs/002.png";
+import Pic03 from "../../static/imgs/003.png";
 
 import { NavigationBar } from "../../components";
 import { SERVER_END_POINT } from "../../configs/server";
@@ -97,6 +98,20 @@ class MainView extends Component {
               소통할 수 있습니다.
             </p>
             <img src={Pic02} className={styles.pic02} alt="002" />
+          </div>
+        </section>
+        <section className={styles.section__right}>
+          <div className={styles.content}>
+            <div className={styles.number}>04</div>
+            <div className={styles.logo}>DRUWA</div>
+            <h2 className={styles.title}>
+              잘 모르겠다구요?
+              <br />
+              우선 직접 체험해보세요!
+            </h2>
+            <div>
+              <img src={Pic03} className={styles.pic03} />
+            </div>
           </div>
         </section>
         <section className={styles.intro}>
