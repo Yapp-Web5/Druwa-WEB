@@ -27,6 +27,19 @@
       margin: 0;
       margin-top: 1rem;
     }
+
+    .startBtn {
+      font-size: 1.2rem;
+      font-weight: 900;
+      font-family: "Futura", sans-serif;
+      background: $white;
+      border-radius: 50px;
+      color: $main-color;
+      padding: 0.8rem 1rem;
+      outline: none;
+      border: 0;
+      margin-top: 3rem;
+    }
   }
 
   .section__left {
@@ -121,5 +134,10 @@
         margin-top: 3rem;
       }
     }
+  }
+
+  footer {
+    background: $main-color;
+    height: 500px;
   }
 }
