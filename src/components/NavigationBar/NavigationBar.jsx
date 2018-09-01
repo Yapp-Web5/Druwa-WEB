@@ -3,6 +3,9 @@
 
 import React, { PureComponent } from "react";
 import cx from "classnames";
+
+import { Link } from "react-scroll";
+
 import * as styles from "./NaviagationBar.scss";
 
 const defaultProps = {};
@@ -20,8 +23,16 @@ class NavigationBar extends PureComponent {
           <div className={styles.left}>Druwa</div>
           <div className={styles.right}>
             <ul className={styles.right__menu}>
-              <li className={styles.right__menu__item}>intro</li>
-              <li className={styles.right__menu__item}>why druwa</li>
+              <li className={styles.right__menu__item}>
+                <Link to="intro" smooth offset={-100}>
+                  intro
+                </Link>
+              </li>
+              <li className={styles.right__menu__item}>
+                <Link to="why" smooth offset={-100}>
+                  why druwa
+                </Link>
+              </li>
               <li className={styles.right__menu__item}>example</li>
               <li className={cx(styles.right__menu__item, styles.highlight)}>
                 start now

@@ -5,6 +5,8 @@ import React, { Component } from "react";
 import * as socketIO from "socket.io-client";
 import { connect } from "react-redux";
 
+import { Element } from "react-scroll";
+
 import Pic01 from "../../static/imgs/001.png";
 import Pic02 from "../../static/imgs/002.png";
 
@@ -28,28 +30,32 @@ class MainView extends Component {
     return (
       <div className={styles.mainPage}>
         <NavigationBar />
-        <section className={styles.header}>
-          <div className={styles.title}>
-            강연, 듣기만 하지말고
-            <br />
-            이제 실시간 소통하러
-          </div>
-          <h1 className={styles.logo}>DRUWA!</h1>
-        </section>
-        <section className={styles.section__left}>
-          <div className={styles.content}>
-            <div className={styles.number}>01</div>
-            <div className={styles.logo}>DRUWA</div>
-            <h2 className={styles.title}>빠른 접근성</h2>
-            <p className={styles.description}>
-              로그인 없이 누구나 편리하게 접근할 수 있습니다. 간편링크를 통해
-              접속하고,
-              <br /> 부여받은 랜덤 닉네임으로 참여하여 강연자, 청취자 분들과
-              소통할 수 있습니다.
-            </p>
-            <img src={Pic01} className={styles.pic01} alt="001" />
-          </div>
-        </section>
+        <Element name="intro">
+          <section className={styles.header}>
+            <div className={styles.title}>
+              강연, 듣기만 하지말고
+              <br />
+              이제 실시간 소통하러
+            </div>
+            <h1 className={styles.logo}>DRUWA!</h1>
+          </section>
+        </Element>
+        <Element name="why">
+          <section className={styles.section__left}>
+            <div className={styles.content}>
+              <div className={styles.number}>01</div>
+              <div className={styles.logo}>DRUWA</div>
+              <h2 className={styles.title}>빠른 접근성</h2>
+              <p className={styles.description}>
+                로그인 없이 누구나 편리하게 접근할 수 있습니다. 간편링크를 통해
+                접속하고,
+                <br /> 부여받은 랜덤 닉네임으로 참여하여 강연자, 청취자 분들과
+                소통할 수 있습니다.
+              </p>
+              <img src={Pic01} className={styles.pic01} alt="001" />
+            </div>
+          </section>
+        </Element>
         <section className={styles.section__right}>
           <div className={styles.content}>
             <div className={styles.number}>02</div>
