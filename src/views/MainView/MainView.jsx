@@ -149,22 +149,24 @@ class MainView extends Component {
           </section>
         </ScrollTrigger>
         <ScrollTrigger onEnter={this.handleScrollTriger(3)}>
-          <section className={styles.section__right}>
-            <div className={styles.content}>
-              <div className={styles.number}>04</div>
-              <div className={styles.logo}>DRUWA</div>
-              <h2 className={styles.title}>
-                잘 모르겠다구요?
-                <br />
-                우선 직접 체험해보세요!
-              </h2>
-              <div>
-                <Fade bottom when={showImage[3]}>
-                  <img src={Pic03} className={styles.pic03} alt="003" />
-                </Fade>
+          <Element name="example">
+            <section className={styles.section__right}>
+              <div className={styles.content}>
+                <div className={styles.number}>04</div>
+                <div className={styles.logo}>DRUWA</div>
+                <h2 className={styles.title}>
+                  잘 모르겠다구요?
+                  <br />
+                  우선 직접 체험해보세요!
+                </h2>
+                <div>
+                  <Fade bottom when={showImage[3]}>
+                    <img src={Pic03} className={styles.pic03} alt="003" />
+                  </Fade>
+                </div>
               </div>
-            </div>
-          </section>
+            </section>
+          </Element>
         </ScrollTrigger>
         <section className={styles.intro}>
           <div className={styles.title}>

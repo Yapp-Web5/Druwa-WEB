@@ -33,7 +33,11 @@ class NavigationBar extends PureComponent {
                   why druwa
                 </Link>
               </li>
-              <li className={styles.right__menu__item}>example</li>
+              <li className={styles.right__menu__item}>
+                <Link to="example" smooth offset={-100}>
+                  Example
+                </Link>
+              </li>
               <li className={cx(styles.right__menu__item, styles.highlight)}>
                 start now
               </li>
