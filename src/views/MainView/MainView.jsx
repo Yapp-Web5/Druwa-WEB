@@ -19,6 +19,7 @@ import { NavigationBar } from "../../components";
 import { SERVER_END_POINT } from "../../configs/server";
 
 import * as styles from "./MainView.scss";
+import { createUser, getUser } from "../../api/UserAPI";
 
 const defaultProps = {};
 const propTypes = {};
@@ -37,8 +38,38 @@ class MainView extends Component {
     };
   }
 
-  componentDidMount() {
-    socketIO(SERVER_END_POINT);
+  async componentDidMount() {
+    // socketIO(SERVER_END_POINT);
+
+    let token = localStorage.getItem("token");
+
+    if (token) {
+      const user = await getUser(token);
+      console.log(user);
+    }
+
+    if (!token) {
+      const user = await createUser();
+      console.log(user);
+      localStorage.setItem("token", user.token);
+      token = user.token;
+    }
+
+    const socket = socketIO.connect(
+      SERVER_END_POINT,
+      {
+        query: {
+          token,
+        },
+      }
+    );
+
+    // socket.on("message", message => {
+    //   console.log(message);
+    //   if (message.token) {
+    //     localStorage.setItem("token", message.token);
+    //   }
+    // });
   }
 
   render() {
