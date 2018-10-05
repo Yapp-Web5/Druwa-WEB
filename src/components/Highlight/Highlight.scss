@@ -1,0 +1,25 @@
+/*
+* Author: @nayunhwan (github.com/nayunhwan)
+* Email: nayunhwan.dev@gmail.com
+*/
+
+@import "../../consts/colors.scss";
+
+.highlight {
+  position: relative;
+  display: inline-block;
+  z-index: 2000;
+
+  &__line {
+    position: absolute;
+    top: 50%;
+    height: 50%;
+    width: 100%;
+    background: $gray15;
+    z-index: -100;
+  }
+
+  .storng {
+    background: $light-main-color;
+  }
+}
