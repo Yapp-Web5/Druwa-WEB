@@ -17,9 +17,9 @@
     width: 100%;
     background: $gray15;
     z-index: -100;
-  }
 
-  .storng {
-    background: $light-main-color;
+    &.strong {
+      background: $light-main-color;
+    }
   }
 }
