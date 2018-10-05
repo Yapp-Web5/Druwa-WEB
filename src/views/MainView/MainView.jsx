@@ -94,7 +94,7 @@ class MainView extends Component {
         <div className={styles.body}>
           <ScrollTrigger onEnter={this.handleScrollTriger(0)}>
             <Element name="why">
-              <section className={cx(styles.section, styles.section__left)}>
+              <section className={cx(styles.section, styles.left)}>
                 <div className={styles.content}>
                   <div className={styles.number}>01</div>
                   <div className={styles.logo}>
@@ -105,9 +105,13 @@ class MainView extends Component {
                   </h2>
                   <p className={styles.description}>
                     <Highlight strong>로그인 없이 누구나 편리하게</Highlight>{" "}
-                    접근할 수 있습니다. 간편링크를 통해 접속하고,
-                    <br /> 부여받은 랜덤 닉네임으로 참여하여 강연자, 청취자
-                    분들과 소통할 수 있습니다.
+                    접근할 수 있습니다.
+                    <br />
+                    <Highlight strong>간편링크를 통해 접속</Highlight>
+                    하고, 부여받은 랜덤 닉네임으로 참여하여
+                    <br />
+                    <Highlight strong>강연자, 청취자 분들과 소통</Highlight>할
+                    수 있습니다.
                   </p>
                   <Fade right when={showImage[0]}>
                     <img src={Pic02} className={styles.pic02} alt="002" />
@@ -117,7 +121,7 @@ class MainView extends Component {
             </Element>
           </ScrollTrigger>
           <ScrollTrigger onEnter={this.handleScrollTriger(1)}>
-            <section className={cx(styles.section, styles.section__right)}>
+            <section className={cx(styles.section, styles.right)}>
               <div className={styles.content}>
                 <div className={styles.number}>02</div>
                 <div className={styles.logo}>DRUWA</div>
@@ -136,20 +140,25 @@ class MainView extends Component {
           </ScrollTrigger>
           {/* {this.renderSelectSelection()} */}
           <ScrollTrigger onEnter={this.handleScrollTriger(2)}>
-            <section className={cx(styles.section, styles.section__left)}>
+            <section className={cx(styles.section, styles.left)}>
               <div className={styles.content}>
                 <div className={styles.number}>03</div>
-                <div className={styles.logo}>DRUWA</div>
+                <div className={styles.logo}>
+                  <Futura>DRUWA</Futura>가 특별한 이유 셋
+                </div>
                 <h2 className={styles.title}>
-                  PDF Reminding
+                  <Highlight>PDF Reminding</Highlight>
                   <br />
-                  그리고 Review 기능
+                  <Highlight>그리고 Review 기능</Highlight>
                 </h2>
                 <p className={styles.description}>
-                  로그인 없이 누구나 편리하게 접근할 수 있습니다. 간편링크를
-                  통해 접속하고,
-                  <br /> 부여받은 랜덤 닉네임으로 참여하여 강연자, 청취자 분들과
-                  소통할 수 있습니다.
+                  <Highlight strong>강연이 끝나더라도, 링크만 있다면</Highlight>{" "}
+                  언제든 다시
+                  <br />
+                  <Highlight strong>
+                    강연 중 커뮤니케이션 했던 내용을 Reminding
+                  </Highlight>{" "}
+                  할 수 있습니다.
                 </p>
                 <Fade right when={showImage[2]}>
                   <img src={Pic02} className={styles.pic02} alt="002" />
@@ -159,7 +168,7 @@ class MainView extends Component {
           </ScrollTrigger>
           <ScrollTrigger onEnter={this.handleScrollTriger(3)}>
             <Element name="example">
-              <section className={cx(styles.section, styles.section__right)}>
+              <section className={cx(styles.section, styles.right)}>
                 <div className={styles.content}>
                   <div className={styles.number}>04</div>
                   <div className={styles.logo}>DRUWA</div>
@@ -178,6 +187,21 @@ class MainView extends Component {
             </Element>
           </ScrollTrigger>
         </div>
+        <section className={styles.lastSection}>
+          <div className={styles.description}>
+            <Highlight block>강연, 듣기만 하지말고</Highlight>
+            <br />
+            <Highlight block>이제 실시간 소통하러</Highlight>
+          </div>
+          <div className={styles.logo}>
+            <Futura>DRUWA!</Futura>
+          </div>
+          <div>
+            <Button className={styles.button}>
+              <Futura>START NOW</Futura>
+            </Button>
+          </div>
+        </section>
 
         <footer />
       </div>

@@ -46,130 +46,110 @@
 
   .body {
     background: $main-color;
+    padding-top: 10rem;
 
     &::after {
       display: block;
+      clear: both;
       content: "";
     }
-  }
 
-  .section {
-    display: flex;
-    justify-content: center;
-    padding: 12rem 0;
-    background: white;
-    width: 75%;
-    margin-bottom: 120px;
+    .section {
+      display: flex;
+      justify-content: center;
+      padding: 12rem 0;
+      background: white;
+      width: 75%;
+      margin-bottom: 120px;
 
-    &__left {
-      float: left;
-
-      &::after {
-        display: block;
-        content: "";
-      }
-    }
-
-    &__right {
-      float: right;
-      &::after {
-        display: block;
-        content: "";
-      }
-    }
-
-    .content {
-      width: $content-width;
-      padding-left: 5rem;
-      position: relative;
-
-      .number {
-        position: absolute;
-        top: -120px;
-        left: 0px;
-        font-size: 10rem;
-        font-weight: 900;
-        color: $number-color;
-        font-family: "Futura", sans-serif;
-        z-index: -100;
+      &.left {
+        float: left;
       }
 
-      .title {
-        font-size: 45px;
-        margin: 0;
+      &.right {
+        float: right;
       }
 
-      .logo {
-        color: $main-color;
-        font-family: "Futura", sans-serif;
-        font-weight: 900;
-        font-size: 2rem;
-      }
+      .content {
+        width: $content-width;
+        padding-left: 5rem;
+        position: relative;
+        z-index: 100;
 
-      .description {
-        margin-top: 3rem;
-      }
+        .number {
+          position: absolute;
+          top: -50px;
+          left: 0px;
+          font-size: 100px;
+          font-weight: 900;
+          color: $number-color;
+          font-family: "Futura", sans-serif;
+          z-index: -100;
+        }
 
-      .pic01 {
-        position: absolute;
-        width: 400px;
-        top: -100px;
-        left: 0;
-      }
+        .title {
+          font-size: 45px;
+          margin: 0;
+        }
 
-      .pic02 {
-        position: absolute;
-        width: 500px;
-        top: -200px;
-        right: 0;
-      }
+        .logo {
+          > span {
+            color: $main-color;
+          }
+          font-family: "Futura", sans-serif;
+          font-weight: 900;
+          font-size: 1rem;
+        }
 
-      .pic03 {
-        margin-top: 5rem;
+        .description {
+          margin-top: 3rem;
+          line-height: 1.89;
+        }
+
+        .pic01 {
+          position: absolute;
+          width: 400px;
+          top: -100px;
+          left: 0;
+        }
+
+        .pic02 {
+          position: absolute;
+          width: 500px;
+          top: -200px;
+          right: 0;
+        }
+
+        .pic03 {
+          margin-top: 5rem;
+        }
       }
     }
   }
 
-  .section__right {
+  .lastSection {
     display: flex;
     justify-content: center;
-    padding: 12rem 0;
+    flex-direction: column;
+    color: $main-color;
     background: white;
-    width: 75%;
-    float: right;
+    height: 1000px;
 
-    .content {
-      width: $content-width;
-      text-align: right;
-      position: relative;
+    > .description {
+      width: 464px;
+      font-size: 40px;
+    }
 
-      .number {
-        position: absolute;
-        top: -120px;
-        right: 80px;
-        font-size: 10rem;
-        font-weight: 900;
-        color: $number-color;
-        font-family: "Futura", sans-serif;
-        z-index: -100;
-      }
+    > .logo {
+      font-size: 140px;
+      font-weight: bold;
+    }
 
-      .title {
-        font-size: 3rem;
-        font-weight: 100;
-        margin: 0;
-      }
-
-      .logo {
-        color: $main-color;
-        font-family: "Futura", sans-serif;
-        font-weight: 900;
-        font-size: 2rem;
-      }
-
-      .description {
-        margin-top: 3rem;
-      }
+    .button {
+      font-size: 21.5px;
+      width: 229px;
+      height: 80px;
+      font-weight: bold;
     }
   }
 
@@ -253,7 +233,7 @@
   }
 
   footer {
-    background: $main-color;
-    height: 500px;
+    background: #313131;
+    height: 358px;
   }
 }
