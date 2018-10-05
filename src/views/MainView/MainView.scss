@@ -11,12 +11,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
     height: 600px;
 
     .title {
-      font-weight: 100;
-      font-size: 3rem;
+      font-weight: bold;
+      font-size: 60px;
+      line-height: 1.5;
+      color: $main-color;
+      margin-right: 25px;
     }
 
     .logo {
@@ -42,10 +44,39 @@
     }
   }
 
-  .section__left {
+  .body {
+    background: $main-color;
+
+    &::after {
+      display: block;
+      content: "";
+    }
+  }
+
+  .section {
     display: flex;
     justify-content: center;
     padding: 12rem 0;
+    background: white;
+    width: 75%;
+    margin-bottom: 120px;
+
+    &__left {
+      float: left;
+
+      &::after {
+        display: block;
+        content: "";
+      }
+    }
+
+    &__right {
+      float: right;
+      &::after {
+        display: block;
+        content: "";
+      }
+    }
 
     .content {
       width: $content-width;
@@ -64,8 +95,7 @@
       }
 
       .title {
-        font-size: 3rem;
-        font-weight: 100;
+        font-size: 45px;
         margin: 0;
       }
 
@@ -80,11 +110,22 @@
         margin-top: 3rem;
       }
 
+      .pic01 {
+        position: absolute;
+        width: 400px;
+        top: -100px;
+        left: 0;
+      }
+
       .pic02 {
         position: absolute;
         width: 500px;
         top: -200px;
         right: 0;
+      }
+
+      .pic03 {
+        margin-top: 5rem;
       }
     }
   }
@@ -93,6 +134,9 @@
     display: flex;
     justify-content: center;
     padding: 12rem 0;
+    background: white;
+    width: 75%;
+    float: right;
 
     .content {
       width: $content-width;
@@ -125,17 +169,6 @@
 
       .description {
         margin-top: 3rem;
-      }
-
-      .pic01 {
-        position: absolute;
-        width: 400px;
-        top: -100px;
-        left: 0;
-      }
-
-      .pic03 {
-        margin-top: 5rem;
       }
     }
   }
