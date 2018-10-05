@@ -7,27 +7,30 @@
 @import "../../consts/variables.scss";
 
 .navigationBar {
-  position: sticky;
-  top: 0;
   display: flex;
   justify-content: center;
-  box-sizing: border-box;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 80px;
   padding: 0 10rem;
-  background: $main-color;
+  background: $white;
   color: $white;
   font-family: "Futura", sans-serif;
+  box-shadow: 0px 3px 49px 19px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
   z-index: 10000;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 
   .content {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 100px;
     box-sizing: border-box;
     width: $content-width;
+    color: $main-color;
 
     .left {
+      font-weight: bold;
     }
 
     .right {

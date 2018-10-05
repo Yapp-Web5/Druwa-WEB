@@ -1,0 +1,20 @@
+/*
+* Author: @nayunhwan (github.com/nayunhwan)
+* Email: nayunhwan.dev@gmail.com
+*/
+
+@import "../../consts/colors.scss";
+@import "../../consts/variables.scss";
+
+.button {
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  color: white;
+  border: 1px solid $white;
+  background: linear-gradient(to right, #725bb5 0%, #fd5e9b 100%);
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+}

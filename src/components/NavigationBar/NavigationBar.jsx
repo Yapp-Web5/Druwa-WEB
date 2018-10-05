@@ -2,9 +2,10 @@
 // If you want to make other Component, Copy and Refactor this Component.
 
 import React, { PureComponent } from "react";
+import { Link } from "react-scroll";
 import cx from "classnames";
 
-import { Link } from "react-scroll";
+import { Futura } from "../";
 
 import * as styles from "./NaviagationBar.scss";
 
@@ -20,7 +21,9 @@ class NavigationBar extends PureComponent {
     return (
       <div className={styles.navigationBar}>
         <div className={styles.content}>
-          <div className={styles.left}>Druwa</div>
+          <div className={styles.left}>
+            <Futura>DRUWA</Futura>
+          </div>
           <div className={styles.right}>
             <ul className={styles.right__menu}>
               <li className={styles.right__menu__item}>
