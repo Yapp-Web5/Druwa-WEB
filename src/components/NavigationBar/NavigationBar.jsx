@@ -2,7 +2,8 @@
 // If you want to make other Component, Copy and Refactor this Component.
 
 import React, { PureComponent } from "react";
-import { Link } from "react-scroll";
+import { Link } from "react-router-dom";
+import { Link as ScrollLink } from "react-scroll";
 import cx from "classnames";
 
 import { Futura } from "../";
@@ -22,27 +23,29 @@ class NavigationBar extends PureComponent {
       <div className={styles.navigationBar}>
         <div className={styles.content}>
           <div className={styles.left}>
-            <Futura>DRUWA</Futura>
+            <Link to="/">
+              <Futura>DRUWA</Futura>
+            </Link>
           </div>
           <div className={styles.right}>
             <ul className={styles.right__menu}>
               <li className={styles.right__menu__item}>
-                <Link to="intro" smooth offset={-100}>
+                <ScrollLink to="intro" smooth offset={-100}>
                   intro
-                </Link>
+                </ScrollLink>
               </li>
               <li className={styles.right__menu__item}>
-                <Link to="why" smooth offset={-100}>
+                <ScrollLink to="why" smooth offset={-100}>
                   why druwa
-                </Link>
+                </ScrollLink>
               </li>
               <li className={styles.right__menu__item}>
-                <Link to="example" smooth offset={-100}>
+                <ScrollLink to="example" smooth offset={-100}>
                   Example
-                </Link>
+                </ScrollLink>
               </li>
               <li className={cx(styles.right__menu__item, styles.highlight)}>
-                start now
+                <Link to="/room">start now</Link>
               </li>
             </ul>
           </div>

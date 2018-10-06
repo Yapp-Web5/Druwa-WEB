@@ -8,10 +8,11 @@
 
 .button {
   padding: 0.5rem 1rem;
-  border-radius: 10px;
+  border-radius: 5px;
   color: white;
-  border: 1px solid $white;
+  border: none;
   background: linear-gradient(to right, #725bb5 0%, #fd5e9b 100%);
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
   cursor: pointer;
 
   &:focus {
