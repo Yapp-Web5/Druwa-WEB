@@ -45,7 +45,7 @@ class NavigationBar extends PureComponent {
                 </ScrollLink>
               </li>
               <li className={cx(styles.right__menu__item, styles.highlight)}>
-                <Link to="/create">start now</Link>
+                <Link to="/room">start now</Link>
               </li>
             </ul>
           </div>
