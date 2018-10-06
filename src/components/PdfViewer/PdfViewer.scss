@@ -1,0 +1,93 @@
+@import "../../consts/colors.scss";
+@import "../../consts/variables.scss";
+
+.pdf_view {
+  width: 50%;
+  margin: 0px;
+  &_full {
+    width: 50%;
+    margin: auto;
+  }
+}
+
+.information_rect {
+  width: 50%;
+  background: $black;
+}
+.pdf_bottom {
+  width: 50%;
+  display: flex;
+  background: $white;
+
+  .util_rect {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    &_link {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      outline: none;
+    }
+    &_fullscreen {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      outline: none;
+    }
+  }
+}
+.pdfmove_rect {
+  width: fit-content;
+  display: flex;
+
+  &_next {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    outline: none;
+  }
+  &_index {
+    width: fit-content;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+  &_prev {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    outline: none;
+  }
+}
+.arrow_prev {
+  position: relative;
+  left: -7px;
+}
+.link {
+  position: relative;
+  left: -5px;
+}
+.fullscreen {
+  position: relative;
+  left: -5px;
+}
+
+.popup {
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top: 1%;
+
+  &_top {
+    margin-bottom: 2%;
+  }
+  &_middle {
+    width: 80%;
+    height: 20px;
+    font-size: 15px;
+  }
+  &_bottom {
+    float: right;
+    margin-top: 2%;
+  }
+}
