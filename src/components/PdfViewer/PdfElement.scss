@@ -1,0 +1,14 @@
+@import "../../consts/colors.scss";
+@import "../../consts/variables.scss";
+
+.pdfElement {
+  height: 100%;
+  background: $black;
+
+  &__page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+}

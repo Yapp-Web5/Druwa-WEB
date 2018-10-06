@@ -2,11 +2,17 @@
 @import "../../consts/variables.scss";
 
 .pdf_view {
-  width: 50%;
-  margin: 0px;
-  &_full {
-    width: 50%;
-    margin: auto;
+  // width: 50%;
+  // margin: 0px;
+
+  // &_full {
+  //   width: 50%;
+  //   margin: auto;
+  // }
+
+  box-sizing: border-box;
+  canvas {
+    height: 100%;
   }
 }
 
