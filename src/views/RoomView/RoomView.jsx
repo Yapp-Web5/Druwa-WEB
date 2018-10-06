@@ -3,12 +3,14 @@
 
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import Fullscreen from "react-fullscreen-crossbrowser";
 
 import {
   NavigationBar,
   Highlight,
   PdfViewer,
   PdfElement,
+  Card,
 } from "../../components";
 
 import samplepdf from "../../static/sid_ppt.pdf";
@@ -40,34 +42,85 @@ class RoomView extends Component {
   componentWillMount() {}
   componentDidMount() {
     // this.props.dispatch(DefaultActionCreator.action());
+    this.handleFullScreen();
   }
 
   onDocumentLoad = ({ numPages }) => {
     this.setState({ numPages });
   };
 
+  handleFullScreen = () => {
+    const isFullScreen = this.state.isFullscreenEnabled;
+    isFullScreen
+      ? this.setState({ isFullscreenEnabled: false })
+      : this.setState({ isFullscreenEnabled: true });
+  };
+
+  handleOnKeyup = event => {
+    const keycode = event.keyCode;
+    const isFullscreenEnabled = this.state.isFullscreenEnabled;
+
+    if (isFullscreenEnabled) {
+      if (keycode === 37) {
+        //prev
+        this.handlePrev();
+      } else if (keycode === 39) {
+        //next
+        this.handleNext();
+      }
+    }
+  };
+
+  handlePrev = () => {
+    if (this.state.pageNumber <= 1) return;
+
+    this.setState({ pageNumber: this.state.pageNumber - 1 });
+  };
+
+  handleNext = () => {
+    if (this.state.pageNumber >= this.state.numPages) return;
+    this.setState({ pageNumber: this.state.pageNumber + 1 });
+  };
+
   render() {
-    console.log(samplepdf);
+    const { isFullscreenEnabled } = this.state;
     return (
-      <div className={styles.roomView}>
+      <div className={styles.roomView} onKeyUp={this.handleOnKeyup}>
         <NavigationBar />
         <div className={styles.body}>
           <div className={styles.body__left}>
-            <div className={styles.body__left__body}>
-              <PdfElement
-                className="full-screenable-node"
-                file={samplepdf}
-                pageNumber={this.state.pageNumber}
-                onDocumentLoad={this.onDocumentLoad}
-              />
+            <PdfViewer
+              file={samplepdf}
+              title={"test"}
+              writer={"who"}
+              date={new Date().toString()}
+              link={"?"}
+            />
+            {/* <div className={styles.body__left__body}>
+              <Fullscreen
+                enabled={isFullscreenEnabled}
+                onChange={isFullscreenEnabled =>
+                  this.setState({ isFullscreenEnabled })
+                }
+              >
+                <PdfElement
+                  className="full-screenable-node"
+                  file={samplepdf}
+                  pageNumber={this.state.pageNumber}
+                  onDocumentLoad={this.onDocumentLoad}
+                />
+              </Fullscreen>
             </div>
             <div className={styles.body__left__bottom}>
               <h1 className={styles.body__left__bottom__title}>
                 <Highlight strong>Title</Highlight>
               </h1>
               <div>description</div>
-              <div>date</div>
-            </div>
+              <div>
+                date
+                <div onClick={this.handleFullScreen}>button</div>
+              </div>
+            </div> */}
           </div>
           <div className={styles.body__right}>
             <div className={styles.body__right__top}>
@@ -75,11 +128,21 @@ class RoomView extends Component {
                 <Highlight>참여자 {}명</Highlight>
               </h1>
             </div>
-            <div className={styles.body__right__body} />
+            <div className={styles.body__right__body}>
+              <Card />
+              <Card />
+              <Card />
+              <Card />
+              <Card admin />
+            </div>
             <div className={styles.body__right__bottom}>
               <div className={styles.body__right__bottom__top}>
-                <div>NAME</div>
-                <div>Slide</div>
+                <div className={styles.body__right__bottom__top__left}>
+                  NAME
+                </div>
+                <div className={styles.body__right__bottom__top__right}>
+                  Slide
+                </div>
               </div>
               <textarea
                 className={styles.body__right__bottom__textarea}

@@ -57,11 +57,26 @@ $right-footer-height: 200px;
       &__top {
         &__header {
           font-size: 20px;
+
+          div {
+            min-width: 162px;
+          }
         }
       }
 
       &__body {
         height: 100%;
+        max-height: 100%;
+        padding: 21px 3px;
+        overflow-y: scroll;
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
+
+        > div {
+          margin-bottom: 1rem;
+        }
       }
 
       &__bottom {
@@ -74,9 +89,20 @@ $right-footer-height: 200px;
 
         &__top {
           display: flex;
+          justify-content: space-between;
           align-items: center;
           background: $gray15;
           height: 40px;
+          padding: 0 17px;
+
+          &__left {
+            font-size: 14px;
+          }
+
+          &__right {
+            font-size: 16px;
+            font-weight: bold;
+          }
         }
 
         &__textarea {
