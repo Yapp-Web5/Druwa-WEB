@@ -4,6 +4,7 @@ import ReactResizeDetector from "react-resize-detector";
 import Fullscreen from "react-fullscreen-crossbrowser";
 
 import PdfElement from "./PdfElement";
+import { Highlight } from "../";
 
 import img_arrow_next from "../../static/imgs/arrow_next.png";
 import img_arrow_prev from "../../static/imgs/arrow_prev.png";
@@ -61,6 +62,7 @@ class PdfViewer extends Component {
     comp.select();
     document.execCommand("copy");
   };
+
   handleOnKeyup = event => {
     const keycode = event.keyCode;
     const isFullscreenEnabled = this.state.isFullscreenEnabled;
@@ -91,8 +93,10 @@ class PdfViewer extends Component {
   information_rect = () => {
     const { title, writer, date } = this.props;
     return (
-      <div className={styles.information_rect} name="information_rect">
-        <div type="text">{title}</div>
+      <div className={styles.info} name="information_rect">
+        <h1 className={styles.info__title}>
+          <Highlight>{title}</Highlight>
+        </h1>
         <div type="text">By {writer}</div>
         <div type="text">Updated {date}</div>
       </div>
@@ -172,7 +176,7 @@ class PdfViewer extends Component {
       : styles.pdf_view_full;
 
     return (
-      <div onKeyUp={this.handleOnKeyup}>
+      <div className={styles.pdfViewer} onKeyUp={this.handleOnKeyup}>
         <Fullscreen
           enabled={isFullscreenEnabled}
           onChange={isFullscreenEnabled =>
@@ -197,10 +201,12 @@ class PdfViewer extends Component {
             </ReactResizeDetector>
           </div>
         </Fullscreen>
-        {!isFullscreenEnabled && this.information_rect()}
         <div className={styles.pdf_bottom} name="pdf_bottom">
-          {!isFullscreenEnabled && this.pdfmove_rect()}
-          {!isFullscreenEnabled && this.util_rect()}
+          {!isFullscreenEnabled && this.information_rect()}
+          <div className={styles.util}>
+            {!isFullscreenEnabled && this.pdfmove_rect()}
+            {!isFullscreenEnabled && this.util_rect()}
+          </div>
         </div>
       </div>
     );
