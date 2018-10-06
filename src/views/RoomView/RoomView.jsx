@@ -4,7 +4,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { NavigationBar, Highlight, PdfViewer } from "../../components";
+import {
+  NavigationBar,
+  Highlight,
+  PdfViewer,
+  PdfElement,
+} from "../../components";
+
+import samplepdf from "../../static/sid_ppt.pdf";
 
 // import * as DefaultActionCreator from "../../actionCreators/_DefaultActionCreator";
 
@@ -20,19 +27,39 @@ const mapStateToProps = state => {
 };
 
 class RoomView extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      numPages: null,
+      pageNumber: 1,
+      isFullscreenEnabled: false,
+      open: false,
+    };
+  }
   componentWillMount() {}
   componentDidMount() {
     // this.props.dispatch(DefaultActionCreator.action());
   }
 
+  onDocumentLoad = ({ numPages }) => {
+    this.setState({ numPages });
+  };
+
   render() {
+    console.log(samplepdf);
     return (
       <div className={styles.roomView}>
         <NavigationBar />
         <div className={styles.body}>
           <div className={styles.body__left}>
             <div className={styles.body__left__body}>
-              <PdfViewer file="https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf" />
+              <PdfElement
+                className="full-screenable-node"
+                file={samplepdf}
+                pageNumber={this.state.pageNumber}
+                onDocumentLoad={this.onDocumentLoad}
+              />
             </div>
             <div className={styles.body__left__bottom}>
               <h1 className={styles.body__left__bottom__title}>
