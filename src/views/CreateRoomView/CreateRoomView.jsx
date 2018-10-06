@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { NavigationBar } from "../../components";
-import * as styles from "./CreateRoom.scss";
 import Dropzone from "react-dropzone";
-import { Redirect } from "react-router-dom";
+
+import { Button, NavigationBar, Futura, Highlight } from "../../components";
+
 import * as createroomActions from "../../modules/createroom";
+
+import * as styles from "./CreateRoomView.scss";
 
 const defaultProps = {};
 const propTypes = {};
@@ -23,7 +25,7 @@ const mapDispatchToProps = dispatch => ({
   updateRoom: data => dispatch(createroomActions.updateRoom(data)),
 });
 
-class CreateRoom extends Component {
+class CreateRoomView extends Component {
   state = {
     files: [],
     title: "",
@@ -131,33 +133,39 @@ class CreateRoom extends Component {
   /**
    * 사용자가 취소 버튼 시 뒤로가기 동작 fn
    */
-  cancelPage = event => {
-    event.preventDefault();
-    this.props.history.push("/");
+  cancelPage = e => {
+    e.preventDefault();
+    const { history } = this.props;
+    history.push("/");
     console.log("취소동작");
   };
 
   /**
-   * submit 하는 button form
+   * file upload form
    */
-  submitform = () => {
+  uploadform = () => {
     return (
-      <div className={styles.submitForm} name="submitform">
-        <button
-          className={styles.submitForm_cancel}
-          name="btn_cancel"
-          onClick={this.cancelPage}
-        >
-          취소
-        </button>
-        <button
-          className={styles.submitForm_ok}
-          name="btn_ok"
-          onClick={this.handleUpload}
-        >
-          확인
-        </button>
-      </div>
+      <section className={styles.uploadForm}>
+        <div className={styles.uploadForm__Rect}>
+          <Dropzone
+            className={styles.uploadForm__Rect__Dropzone}
+            onDrop={this.onDrop.bind(this)}
+            accept=".pdf"
+            multiple={false}
+            disabled={this.state.isUpdate}
+          >
+            <div className={styles.uploadForm__Rect__Content}>
+              {this.state.files.length > 0 && this.state.files.map(f => f.name)}
+              {this.state.files.length > 0 && <br />}
+              <Button>
+                <Futura>CLICK TO UPLOAD FILE</Futura>
+              </Button>
+              <br />
+              <Futura>OR JUST DRAG AND DROP IT</Futura>
+            </div>
+          </Dropzone>
+        </div>
+      </section>
     );
   };
 
@@ -167,87 +175,81 @@ class CreateRoom extends Component {
   inputform = () => {
     return (
       <div className={styles.inputForm} name="inputform">
-        <div className={styles.inputForm_titleRect}>
-          <p className={styles.inputForm_titleRect_left}>방 이름 :</p>
-          <input
-            className={styles.inputForm_title}
-            name="title"
-            type="text"
-            value={this.state.title}
-            onChange={this.handleOnChange}
-            placeholder="방 이름"
-          />
-        </div>
-        <div className={styles.inputForm_writerRect}>
-          <p className={styles.inputForm_titleRect_left}>강연자 이름 :</p>
-          <input
-            className={styles.iputForm_writer}
-            name="writer"
-            type="text"
-            value={this.state.writer}
-            onChange={this.handleOnChange}
-            placeholder="작성자"
-          />
-        </div>
-        <div className={styles.inputForm_passwordRect}>
-          <p className={styles.inputForm_titleRect_left}>비밀번호 :</p>
-          <input
-            className={styles.inputForm_password}
-            name="password"
-            type="password"
-            value={this.state.password}
-            onChange={this.handleOnChange}
-            placeholder="비밀번호"
-          />
+        <h1 className={styles.inputForm__title}>
+          <Highlight block>강연 생성하기</Highlight>
+        </h1>
+        <div className={styles.inputForm__body}>
+          <label className={styles.inputForm__body__label}>
+            <span>방 이름</span>
+            <input
+              className={styles.inputForm__input}
+              name="title"
+              type="text"
+              value={this.state.title}
+              onChange={this.handleOnChange}
+            />
+          </label>
+          <label className={styles.inputForm__body__label}>
+            <span>강연자 이름</span>
+            <input
+              className={styles.inputForm__input}
+              name="writer"
+              type="text"
+              value={this.state.writer}
+              onChange={this.handleOnChange}
+            />
+          </label>
+          <label className={styles.inputForm__body__label}>
+            <span>비밀번호</span>
+            <input
+              className={styles.inputForm__input}
+              name="password"
+              type="password"
+              value={this.state.password}
+              onChange={this.handleOnChange}
+            />
+          </label>
         </div>
       </div>
     );
   };
 
   /**
-   * file upload form
+   * submit 하는 button form
    */
-  uploadform = () => {
+  submitform = () => {
     return (
-      <section className={styles.uploadForm}>
-        <div className={styles.uploadForm_Rect}>
-          <Dropzone
-            className={styles.uploadForm_Rect_Dropzone}
-            onDrop={this.onDrop.bind(this)}
-            accept=".pdf"
-            multiple={false}
-            disabled={this.state.isUpdate}
-          >
-            <p className={styles.uploadForm_Rect_Content}>
-              {this.state.files.length > 0 && this.state.files.map(f => f.name)}
-              {this.state.files.length > 0 && <br />}
-              파일을 첨부해주세요 !<br />
-              Drag and Drop or Click !
-            </p>
-          </Dropzone>
-        </div>
-      </section>
+      <div className={styles.submitForm} name="submitform">
+        <Button
+          className={styles.submitForm__button}
+          name="btn_cancel"
+          onClick={this.handleUpload}
+        >
+          <Futura>OK</Futura>
+        </Button>
+        <Button
+          className={styles.submitForm__button}
+          name="btn_ok"
+          onClick={this.cancelPage}
+        >
+          <Futura>CANCEL</Futura>
+        </Button>
+      </div>
     );
   };
 
   render() {
-    const redirect = this.state.isDone ? (
-      <Redirect to="/Room" />
-    ) : (
-      <NavigationBar />
-    );
-
     return (
-      <div className={styles.root}>
-        <div name="head">{redirect}</div>
+      <div className={styles.createRoomView}>
+        <NavigationBar />
         <div className={styles.body} name="body">
-          <div className={styles.body_container} name="body_container">
-            <div className={styles.body_container_left}>
+          <div className={styles.body__container} name="body_container">
+            <div className={styles.body__container__left}>
               <div className={styles.uploadRect} name="upload_rect">
                 {this.uploadform()}
               </div>
             </div>
-            <div className={styles.body_container_right}>
+            <div className={styles.body__container__right}>
               <div className={styles.inputRect} name="input_rect">
                 {this.inputform()}
               </div>
@@ -262,10 +264,10 @@ class CreateRoom extends Component {
   }
 }
 
-CreateRoom.defaultProps = defaultProps;
-CreateRoom.propTypes = propTypes;
+CreateRoomView.defaultProps = defaultProps;
+CreateRoomView.propTypes = propTypes;
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(CreateRoom);
+)(CreateRoomView);
