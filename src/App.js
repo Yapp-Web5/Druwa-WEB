@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
@@ -8,7 +8,7 @@ const mapStateToProps = state => {
   return {};
 };
 
-class App extends Component {
+class App extends PureComponent {
   async componentWillMount() {}
 
   componentWillReceiveProps(nextProps) {}

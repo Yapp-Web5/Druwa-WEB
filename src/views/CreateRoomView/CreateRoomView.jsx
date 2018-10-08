@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import Dropzone from "react-dropzone";
 
@@ -25,7 +25,7 @@ const mapDispatchToProps = dispatch => ({
   updateRoom: data => dispatch(createroomActions.updateRoom(data)),
 });
 
-class CreateRoomView extends Component {
+class CreateRoomView extends PureComponent {
   state = {
     files: [],
     title: "",

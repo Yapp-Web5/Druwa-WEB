@@ -1,7 +1,7 @@
 // This Page is Skeleton of React Structure for Web Development
 // If you want to make other page, Copy and Refactor this page.
 
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import Fullscreen from "react-fullscreen-crossbrowser";
 
@@ -28,7 +28,7 @@ const mapStateToProps = state => {
   };
 };
 
-class RoomView extends Component {
+class RoomView extends PureComponent {
   constructor(props) {
     super(props);
 

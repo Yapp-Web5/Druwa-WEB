@@ -1,7 +1,7 @@
 // This Page is Skeleton of React Structure for Web Development
 // If you want to make other page, Copy and Refactor this page.
 
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import { PdfViewer } from "../../components";
 import * as generateroomAction from "../../modules/GenerateRoom";
@@ -20,7 +20,7 @@ const mapDispatchToProps = dispatch => ({
   getRoom: roomId => dispatch(generateroomAction.getRoom(roomId)),
 });
 
-class GenerateRoomView extends Component {
+class GenerateRoomView extends PureComponent {
   state = {
     isAdmin: false,
     room: {
