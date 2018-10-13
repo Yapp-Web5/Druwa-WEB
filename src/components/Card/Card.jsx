@@ -1,7 +1,7 @@
 // This Component is Skeleton of React Structure for Web Development
 // If you want to make other Component, Copy and Refactor this Component.
 
-import React, { PureComponent } from "react";
+import React, { Component } from "react";
 import cx from "classnames";
 import * as styles from "./Card.scss";
 
@@ -10,13 +10,13 @@ const defaultProps = {
 };
 const propTypes = {};
 
-class Card extends PureComponent {
+class Card extends Component {
   constructor(props) {
     super(props);
   }
 
   render() {
-    const { admin, className } = this.props;
+    const { admin, className, card } = this.props;
     return (
       <div
         className={cx(className, styles.card, {
@@ -24,12 +24,14 @@ class Card extends PureComponent {
         })}
       >
         <div className={styles.card__header}>
-          <div className={styles.card__header__left}>Username</div>
-          <div className={styles.card__header__right}>Username</div>
+          <div className={styles.card__header__left}>
+            {card.author.username}
+          </div>
+          <div className={styles.card__header__right}>
+            Page {card.refPageIdx}
+          </div>
         </div>
-        <div className={styles.card__body}>
-          댓글내용이 입력됩니다. 이것은 신기합니다.
-        </div>
+        <div className={styles.card__body}>{card.content}</div>
         <div className={styles.card__bottom}>icon cion cion</div>
       </div>
     );

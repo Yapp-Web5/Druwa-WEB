@@ -1,14 +1,14 @@
 // This Component is Skeleton of React Structure for Web Development
 // If you want to make other Component, Copy and Refactor this Component.
 
-import React, { PureComponent } from "react";
+import React, { Component } from "react";
 import cx from "classnames";
 import * as styles from "./Button.scss";
 
 const defaultProps = {};
 const propTypes = {};
 
-class Button extends PureComponent {
+class Button extends Component {
   constructor(props) {
     super(props);
   }

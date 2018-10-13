@@ -6,10 +6,10 @@
 import { SERVER_END_POINT } from "../configs/server";
 import axios from "axios";
 
-const basicRequest = (type, { url, headers, body }) => {
+const basicRequest = (type, { url, headers, body, origin }) => {
   const config = {
     method: type,
-    url: SERVER_END_POINT + url,
+    url: origin ? origin : SERVER_END_POINT + url,
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",

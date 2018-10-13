@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React, { Component } from "react";
 import Popup from "reactjs-popup";
 import ReactResizeDetector from "react-resize-detector";
 import Fullscreen from "react-fullscreen-crossbrowser";
@@ -13,7 +13,7 @@ import img_fullscreen from "../../static/imgs/fullscreen.png";
 
 import * as styles from "./PdfViewer.scss";
 
-class PdfViewer extends PureComponent {
+class PdfViewer extends Component {
   state = {
     numPages: null,
     pageNumber: 1,

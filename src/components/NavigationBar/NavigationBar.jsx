@@ -29,21 +29,6 @@ class NavigationBar extends PureComponent {
           </div>
           <div className={styles.right}>
             <ul className={styles.right__menu}>
-              <li className={styles.right__menu__item}>
-                <ScrollLink to="intro" smooth offset={-100}>
-                  intro
-                </ScrollLink>
-              </li>
-              <li className={styles.right__menu__item}>
-                <ScrollLink to="why" smooth offset={-100}>
-                  why druwa
-                </ScrollLink>
-              </li>
-              <li className={styles.right__menu__item}>
-                <ScrollLink to="example" smooth offset={-100}>
-                  Example
-                </ScrollLink>
-              </li>
               <li className={cx(styles.right__menu__item, styles.highlight)}>
                 <Link to="/room">start now</Link>
               </li>
