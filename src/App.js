@@ -1,15 +1,30 @@
-import React, { PureComponent } from "react";
+import React, { Component } from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { GenerateRoomView, MainView, CreateRoomView, RoomView } from "./views";
+import { createUser, getUser } from "./api/UserAPI";
 
 const mapStateToProps = state => {
   return {};
 };
 
-class App extends PureComponent {
-  async componentWillMount() {}
+class App extends Component {
+  async componentWillMount() {
+    let token = localStorage.getItem("token");
+
+    if (token) {
+      const user = await getUser(token);
+      console.log(user);
+    }
+
+    if (!token) {
+      const user = await createUser();
+      console.log(user);
+      localStorage.setItem("token", user.token);
+      token = user.token;
+    }
+  }
 
   componentWillReceiveProps(nextProps) {}
 

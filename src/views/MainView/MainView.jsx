@@ -1,22 +1,21 @@
 // This Page is Skeleton of React Structure for Web Development
 // If you want to make other page, Copy and Refactor this page.
 
-import React, { PureComponent } from "react";
+import React, { Component } from "react";
 import { Fade } from "react-reveal";
 
 import { connect } from "react-redux";
 import { Element } from "react-scroll";
 import ScrollTrigger from "react-scroll-trigger";
 
-import * as socketIO from "socket.io-client";
 import cx from "classnames";
 
 import Pic01 from "../../static/imgs/pic01.png";
 import Pic02 from "../../static/imgs/002.png";
 import Pic03 from "../../static/imgs/003.png";
+import Main from "../../static/imgs/main.png";
 
 import { Button, Futura, Highlight, NavigationBar } from "../../components";
-import { SERVER_END_POINT } from "../../configs/server";
 
 import * as styles from "./MainView.scss";
 import { createUser, getUser } from "../../api/UserAPI";
@@ -28,7 +27,7 @@ const mapStateToProps = state => {
   return {};
 };
 
-class MainView extends PureComponent {
+class MainView extends Component {
   constructor(props) {
     super(props);
 
@@ -40,30 +39,17 @@ class MainView extends PureComponent {
 
   async componentDidMount() {
     // socketIO(SERVER_END_POINT);
-
-    let token = localStorage.getItem("token");
-
-    if (token) {
-      const user = await getUser(token);
-      console.log(user);
-    }
-
-    if (!token) {
-      const user = await createUser();
-      console.log(user);
-      localStorage.setItem("token", user.token);
-      token = user.token;
-    }
-
-    const socket = socketIO.connect(
-      SERVER_END_POINT,
-      {
-        query: {
-          token,
-        },
-      }
-    );
-
+    // let token = localStorage.getItem("token");
+    // if (token) {
+    //   const user = await getUser(token);
+    //   console.log(user);
+    // }
+    // if (!token) {
+    //   const user = await createUser();
+    //   console.log(user);
+    //   localStorage.setItem("token", user.token);
+    //   token = user.token;
+    // }
     // socket.on("message", message => {
     //   console.log(message);
     //   if (message.token) {
@@ -79,17 +65,18 @@ class MainView extends PureComponent {
         <NavigationBar />
         <Element name="intro">
           <section className={styles.intro}>
-            <div className={styles.title}>
-              <Highlight block>발표강연의</Highlight>
-              <br /><Highlight block>패러다임을 바꾸다</Highlight>
-              <br />
-              <Highlight block>
-                <Futura>DRUWA .</Futura>
-              </Highlight>
+            <div>
+              <div className={styles.title}>
+                <Highlight block>발표강연의</Highlight>
+                <br /><Highlight block>패러다임을 바꾸다</Highlight>
+                <br />
+                <Highlight block>
+                  <Futura>DRUWA .</Futura>
+                </Highlight>
+              </div>
+              <img src={Pic01} alt="pic01" />
             </div>
-            <img src={Pic01} alt="pic01" />
           </section>
-          <Button>START NOW</Button>
         </Element>
         <div className={styles.body}>
           <ScrollTrigger onEnter={this.handleScrollTriger(0)}>

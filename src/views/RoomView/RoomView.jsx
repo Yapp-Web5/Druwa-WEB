@@ -1,9 +1,10 @@
 // This Page is Skeleton of React Structure for Web Development
 // If you want to make other page, Copy and Refactor this page.
 
-import React, { PureComponent } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import Fullscreen from "react-fullscreen-crossbrowser";
+import moment from "moment";
 
 import {
   NavigationBar,
@@ -13,22 +14,27 @@ import {
   Card,
 } from "../../components";
 
-import samplepdf from "../../static/sid_ppt.pdf";
+import samplepdf from "../../static/ppt.pdf";
+
+import * as socketIO from "socket.io-client";
+import { SERVER_END_POINT } from "../../configs/server";
 
 // import * as DefaultActionCreator from "../../actionCreators/_DefaultActionCreator";
 
 import * as styles from "./RoomView.scss";
+import { getRoom, enterRoom } from "../../modules/roomReducer";
 
 const defaultProps = {};
 const propTypes = {};
 
 const mapStateToProps = state => {
   return {
+    room: state.roomReducer.room,
     // actionResult: state.reducer.actionResult,
   };
 };
 
-class RoomView extends PureComponent {
+class RoomView extends Component {
   constructor(props) {
     super(props);
 
@@ -37,12 +43,39 @@ class RoomView extends PureComponent {
       pageNumber: 1,
       isFullscreenEnabled: false,
       open: false,
+      socket: null,
     };
   }
   componentWillMount() {}
+  componentWillUnmount() {
+    const { socket } = this.state;
+    socket.close();
+  }
+
   componentDidMount() {
-    // this.props.dispatch(DefaultActionCreator.action());
-    this.handleFullScreen();
+    const { dispatch, match } = this.props;
+    const roomUrl = match.params.roomId;
+    dispatch(getRoom({ url: roomUrl }));
+
+    const token = localStorage.getItem("token");
+    const socket = socketIO.connect(
+      SERVER_END_POINT,
+      {
+        query: {
+          type: "enter",
+          roomUrl,
+          token,
+        },
+      }
+    );
+    this.setState({
+      socket,
+    });
+
+    socket.on("newEnter", message => {
+      console.log(message);
+      dispatch(enterRoom({ room: message.room }));
+    });
   }
 
   onDocumentLoad = ({ numPages }) => {
@@ -83,7 +116,11 @@ class RoomView extends PureComponent {
   };
 
   render() {
-    const { isFullscreenEnabled } = this.state;
+    const { room } = this.props;
+    if (!room) {
+      return null;
+    }
+
     return (
       <div className={styles.roomView} onKeyUp={this.handleOnKeyup}>
         <NavigationBar />
@@ -91,9 +128,9 @@ class RoomView extends PureComponent {
           <div className={styles.body__left}>
             <PdfViewer
               file={samplepdf}
-              title={"test"}
-              writer={"who"}
-              date={new Date().toString()}
+              title={room.title}
+              writer={room.lecturer}
+              date={moment(room.createdAt).format("YYYY-MM-DD")}
               link={"?"}
             />
             {/* <div className={styles.body__left__body}>
@@ -125,15 +162,15 @@ class RoomView extends PureComponent {
           <div className={styles.body__right}>
             <div className={styles.body__right__top}>
               <h1 className={styles.body__right__top__header}>
-                <Highlight>참여자 {}명</Highlight>
+                <Highlight>참여자 {room.participants.length}명</Highlight>
               </h1>
             </div>
             <div className={styles.body__right__body}>
-              <Card />
-              <Card />
-              <Card />
-              <Card />
               <Card admin />
+              <Card />
+              <Card />
+              <Card />
+              <Card />
             </div>
             <div className={styles.body__right__bottom}>
               <div className={styles.body__right__bottom__top}>
