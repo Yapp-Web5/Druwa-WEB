@@ -44,6 +44,7 @@ class RoomView extends Component {
       isFullscreenEnabled: false,
       open: false,
       socket: null,
+      commentInput: "",
     };
   }
   componentWillMount() {}
@@ -115,6 +116,14 @@ class RoomView extends Component {
     this.setState({ pageNumber: this.state.pageNumber + 1 });
   };
 
+  handleChangeCommentInput = e => {
+    const { value } = e.target;
+    console.log(value);
+    this.setState({
+      commentInput: value,
+    });
+  };
+
   render() {
     const { room } = this.props;
     if (!room) {
@@ -184,6 +193,7 @@ class RoomView extends Component {
               <textarea
                 className={styles.body__right__bottom__textarea}
                 placeholder="내용을 입력하세요"
+                onChange={this.handleChangeCommentInput}
               />
             </div>
           </div>

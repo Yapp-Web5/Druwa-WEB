@@ -87,8 +87,8 @@ class CreateRoomView extends Component {
     const { dispatch } = this.props;
     const { title, lecturer, password, files } = this.state;
     dispatch(createRoom({ title, lecturer, password }));
-    const url = await uploadPDF({ file: files[0] });
-    console.log(url);
+    // const url = await uploadPDF({ file: files[0] });
+    // console.log(url);
     // event.preventDefault();
     // const { files, title, writer, password, isUpdate } = this.state;
     // //파일 업로드->제목->작성자 순으로 focus 이동시켜 버리기
