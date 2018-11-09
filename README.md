@@ -10,6 +10,11 @@ $ cd Druwa-WEB
 $ npm install
 ```
 
+## How to run
+```$
+$ npm start
+```
+
 ## Skill Stacks
 
 - React v16
