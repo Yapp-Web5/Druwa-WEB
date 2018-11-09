@@ -15,6 +15,8 @@ $ npm install
 $ npm start
 ```
 
+and enter to `localhost:3000`
+
 ## Skill Stacks
 
 - React v16
