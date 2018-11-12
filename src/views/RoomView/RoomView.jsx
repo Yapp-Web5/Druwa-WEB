@@ -44,6 +44,7 @@ class RoomView extends Component {
       isFullscreenEnabled: false,
       open: false,
       socket: null,
+      cardInput: "",
     };
   }
   componentWillMount() {}
@@ -115,6 +116,14 @@ class RoomView extends Component {
     this.setState({ pageNumber: this.state.pageNumber + 1 });
   };
 
+  handleChangeCardInput = e => {
+    const { value } = e.target;
+    console.log(value);
+    this.setState({
+      cardInput: value,
+    });
+  };
+
   render() {
     const { room } = this.props;
     if (!room) {
@@ -166,11 +175,10 @@ class RoomView extends Component {
               </h1>
             </div>
             <div className={styles.body__right__body}>
-              <Card admin />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
+              {room.cards.map(card => {
+                console.log(card);
+                return <Card key={card._id} admin={card.isAdmin} card={card} />;
+              })}
             </div>
             <div className={styles.body__right__bottom}>
               <div className={styles.body__right__bottom__top}>
@@ -184,6 +192,7 @@ class RoomView extends Component {
               <textarea
                 className={styles.body__right__bottom__textarea}
                 placeholder="내용을 입력하세요"
+                onChange={this.handleChangeCardInput}
               />
             </div>
           </div>

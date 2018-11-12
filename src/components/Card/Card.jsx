@@ -16,7 +16,7 @@ class Card extends Component {
   }
 
   render() {
-    const { admin, className } = this.props;
+    const { admin, className, card } = this.props;
     return (
       <div
         className={cx(className, styles.card, {
@@ -24,10 +24,14 @@ class Card extends Component {
         })}
       >
         <div className={styles.card__header}>
-          <div className={styles.card__header__left}>Username</div>
-          <div className={styles.card__header__right}>Username</div>
+          <div className={styles.card__header__left}>
+            {card.author.username}
+          </div>
+          <div className={styles.card__header__right}>
+            Page {card.refPageIdx}
+          </div>
         </div>
-        <div className={styles.card__body}>댓글 내용이 입력됩니다.</div>
+        <div className={styles.card__body}>{card.content}</div>
         <div className={styles.card__bottom}>icon cion cion</div>
       </div>
     );
