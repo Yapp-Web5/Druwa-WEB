@@ -1,11 +1,19 @@
-const actions = {
-  LOGIN: {
-    REQUEST: "LOGIN_REQUEST",
-    SUCCESS: "LOGIN_SUCCESS",
-    FAILED: "LOGIN_FAILED",
-  },
+import { actions } from "actions/userAction";
+const initialState = {
+  room: null,
 };
 
-export function loginRequest({ token }) {
-  return;
-}
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case actions.LOGIN.REQUEST: {
+      console.log("TesT");
+      return {
+        ...state,
+      };
+    }
+    default:
+      return state;
+  }
+};
+
+export default reducer;

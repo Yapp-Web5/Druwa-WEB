@@ -4,9 +4,14 @@ import { connect } from "react-redux";
 
 import { GenerateRoomView, MainView, CreateRoomView, RoomView } from "./views";
 import { createUser, getUser } from "./api/UserAPI";
+import { loginRequest } from "./actions/userAction";
 
 const mapStateToProps = state => {
   return {};
+};
+
+const mapDispatchToProps = {
+  loginRequest,
 };
 
 class App extends Component {
@@ -14,6 +19,7 @@ class App extends Component {
     let token = localStorage.getItem("token");
 
     if (token) {
+      this.props.loginRequest(token);
       const user = await getUser(token);
       console.log(user);
     }
@@ -45,4 +51,9 @@ class App extends Component {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(App));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(App)
+);

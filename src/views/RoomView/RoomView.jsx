@@ -142,31 +142,6 @@ class RoomView extends Component {
               date={moment(room.createdAt).format("YYYY-MM-DD")}
               link={"?"}
             />
-            {/* <div className={styles.body__left__body}>
-              <Fullscreen
-                enabled={isFullscreenEnabled}
-                onChange={isFullscreenEnabled =>
-                  this.setState({ isFullscreenEnabled })
-                }
-              >
-                <PdfElement
-                  className="full-screenable-node"
-                  file={samplepdf}
-                  pageNumber={this.state.pageNumber}
-                  onDocumentLoad={this.onDocumentLoad}
-                />
-              </Fullscreen>
-            </div>
-            <div className={styles.body__left__bottom}>
-              <h1 className={styles.body__left__bottom__title}>
-                <Highlight strong>Title</Highlight>
-              </h1>
-              <div>description</div>
-              <div>
-                date
-                <div onClick={this.handleFullScreen}>button</div>
-              </div>
-            </div> */}
           </div>
           <div className={styles.body__right}>
             <div className={styles.body__right__top}>
