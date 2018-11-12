@@ -5,8 +5,7 @@ import Dropzone from "react-dropzone";
 
 import { Button, NavigationBar, Futura, Highlight } from "../../components";
 
-import * as createroomActions from "../../modules/createroom";
-import { createRoom } from "../../modules/roomReducer";
+import { createRoomRequest } from "actions/roomAction";
 
 import * as styles from "./CreateRoomView.scss";
 import { uploadPDF } from "../../api/UploadAPI";
@@ -22,12 +21,9 @@ const mapStateToProps = state => {
   };
 };
 
-// const mapDispatchToProps = dispatch => ({
-//   getAdmin: roomId => dispatch(createroomActions.getAdmin(roomId)),
-//   getRoom: roomId => dispatch(createroomActions.getRoom(roomId)),
-//   setRoom: data => dispatch(createroomActions.setRoom(data)),
-//   updateRoom: data => dispatch(createroomActions.updateRoom(data)),
-// });
+const mapDispatchToProps = {
+  createRoomRequest,
+};
 
 class CreateRoomView extends Component {
   state = {
@@ -83,10 +79,9 @@ class CreateRoomView extends Component {
   /**
    * 관리자가 생성/수정 버튼 클릭 시 발생하는 fn
    */
-  handleUpload = async event => {
-    const { dispatch } = this.props;
+  handleUpload = event => {
     const { title, lecturer, password, files } = this.state;
-    dispatch(createRoom({ title, lecturer, password }));
+    this.props.createRoomRequest({ title, lecturer, password });
     // const url = await uploadPDF({ file: files[0] });
     // console.log(url);
     // event.preventDefault();
@@ -280,4 +275,7 @@ class CreateRoomView extends Component {
 CreateRoomView.defaultProps = defaultProps;
 CreateRoomView.propTypes = propTypes;
 
-export default connect(mapStateToProps)(CreateRoomView);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CreateRoomView);

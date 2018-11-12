@@ -1,6 +1,5 @@
 import { all, takeLatest, call, put } from "redux-saga/effects";
 import { actions, loginSuccess } from "actions/userAction";
-
 import { getUser, createUser } from "api/UserAPI";
 
 function* requestLogin() {

@@ -22,7 +22,8 @@ import { SERVER_END_POINT } from "../../configs/server";
 // import * as DefaultActionCreator from "../../actionCreators/_DefaultActionCreator";
 
 import * as styles from "./RoomView.scss";
-import { getRoom, enterRoom } from "../../modules/roomReducer";
+import { getRoomRequest } from "actions/roomAction";
+// import { enterRoom } from "../../modules/roomReducer";
 
 const defaultProps = {};
 const propTypes = {};
@@ -32,6 +33,10 @@ const mapStateToProps = state => {
     room: state.roomReducer.room,
     // actionResult: state.reducer.actionResult,
   };
+};
+
+const mapDispatchToProps = {
+  getRoomRequest,
 };
 
 class RoomView extends Component {
@@ -56,7 +61,7 @@ class RoomView extends Component {
   componentDidMount() {
     const { dispatch, match } = this.props;
     const roomUrl = match.params.roomId;
-    dispatch(getRoom({ url: roomUrl }));
+    this.props.getRoomRequest(roomUrl);
 
     const token = localStorage.getItem("token");
     const socket = socketIO.connect(
@@ -75,7 +80,7 @@ class RoomView extends Component {
 
     socket.on("newEnter", message => {
       console.log(message);
-      dispatch(enterRoom({ room: message.room }));
+      // dispatch(enterRoom({ room: message.room }));
     });
   }
 
@@ -180,4 +185,7 @@ class RoomView extends Component {
 RoomView.defaultProps = defaultProps;
 RoomView.propTypes = propTypes;
 
-export default connect(mapStateToProps)(RoomView);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(RoomView);

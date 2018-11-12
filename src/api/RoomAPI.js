@@ -1,7 +1,7 @@
 /*
-* Author: @nayunhwan (github.com/nayunhwan)
-* Email: nayunhwan.dev@gmail.com
-*/
+ * Author: @nayunhwan (github.com/nayunhwan)
+ * Email: nayunhwan.dev@gmail.com
+ */
 
 import * as webRequestUtil from "../utils/webRequestUtil";
 
@@ -24,7 +24,7 @@ export async function createRoom({ title, lecturer, password }) {
   return res.data;
 }
 
-export async function getRoom({ roomUrl }) {
+export async function getRoom(roomUrl) {
   const token = localStorage.getItem("token");
   const url = `api/rooms/${roomUrl}`;
   const headers = {
