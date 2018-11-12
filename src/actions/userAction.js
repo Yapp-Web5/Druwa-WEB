@@ -6,11 +6,17 @@ export const actions = {
   },
 };
 
-export function loginRequest(token) {
+export function loginRequest() {
   return {
     type: actions.LOGIN.REQUEST,
+  };
+}
+
+export function loginSuccess(me) {
+  return {
+    type: actions.LOGIN.SUCCESS,
     payload: {
-      token,
+      me,
     },
   };
 }

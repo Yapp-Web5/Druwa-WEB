@@ -1,14 +1,15 @@
 import { actions } from "actions/userAction";
 const initialState = {
-  room: null,
+  me: null,
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actions.LOGIN.REQUEST: {
-      console.log("TesT");
+    case actions.LOGIN.SUCCESS: {
+      const { me } = action.payload;
       return {
         ...state,
+        me,
       };
     }
     default:

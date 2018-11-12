@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { GenerateRoomView, MainView, CreateRoomView, RoomView } from "./views";
-import { createUser, getUser } from "./api/UserAPI";
+import { MainView, CreateRoomView, RoomView } from "./views";
 import { loginRequest } from "./actions/userAction";
 
 const mapStateToProps = state => {
-  return {};
+  return {
+    me: state.userReducer.me,
+  };
 };
 
 const mapDispatchToProps = {
@@ -15,26 +16,15 @@ const mapDispatchToProps = {
 };
 
 class App extends Component {
-  async componentWillMount() {
-    let token = localStorage.getItem("token");
-
-    if (token) {
-      this.props.loginRequest(token);
-      const user = await getUser(token);
-      console.log(user);
-    }
-
-    if (!token) {
-      const user = await createUser();
-      console.log(user);
-      localStorage.setItem("token", user.token);
-      token = user.token;
-    }
+  componentDidMount() {
+    this.props.loginRequest();
   }
 
-  componentWillReceiveProps(nextProps) {}
-
   render() {
+    const { me } = this.props;
+    if (!me) {
+      return null;
+    }
     return (
       <div className="App">
         <Switch>
