@@ -7,12 +7,14 @@ function* requestLogin() {
 
   if (token) {
     const user = yield call(getUser, token);
+    console.log(user);
     yield put(loginSuccess(user));
   }
 
   if (!token) {
     const user = yield call(createUser);
     localStorage.setItem("token", user.token);
+    console.log(user);
     yield put(loginSuccess(user));
   }
 }

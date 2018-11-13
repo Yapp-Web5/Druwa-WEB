@@ -14,6 +14,11 @@ export const actions = {
     SUCCESS: "ENTER_ROOM_SUCCESS",
     FAILED: "ENTER_ROOM_FAILED",
   },
+  CREATE_CARD: {
+    REQUEST: "CREATE_CARD_REQUEST",
+    SUCCESS: "CREATE_CARD_RESPONSE",
+    FAILED: "CREATE_CARD_FAILED",
+  },
 };
 
 export function createRoomRequest({ title, lecturer, password }) {

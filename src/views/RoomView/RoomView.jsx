@@ -22,7 +22,7 @@ import { SERVER_END_POINT } from "../../configs/server";
 // import * as DefaultActionCreator from "../../actionCreators/_DefaultActionCreator";
 
 import * as styles from "./RoomView.scss";
-import { getRoomRequest } from "actions/roomAction";
+import { getRoomRequest, enterRoomRequest } from "actions/roomAction";
 // import { enterRoom } from "../../modules/roomReducer";
 
 const defaultProps = {};
@@ -37,6 +37,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   getRoomRequest,
+  enterRoomRequest,
 };
 
 class RoomView extends Component {
@@ -59,7 +60,7 @@ class RoomView extends Component {
   }
 
   componentDidMount() {
-    const { dispatch, match } = this.props;
+    const { match } = this.props;
     const roomUrl = match.params.roomId;
     this.props.getRoomRequest(roomUrl);
 
@@ -79,7 +80,8 @@ class RoomView extends Component {
     });
 
     socket.on("newEnter", message => {
-      console.log(message);
+      console.log("newEnter", message);
+      this.props.enterRoomRequest(message.room);
       // dispatch(enterRoom({ room: message.room }));
     });
   }

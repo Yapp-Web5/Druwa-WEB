@@ -1,3 +1,4 @@
+import { uniq } from "lodash";
 import { actions } from "actions/roomAction";
 
 const initialState = {
@@ -23,6 +24,16 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         room,
+      };
+    }
+    case actions.ENTER_ROOM.REQUEST: {
+      const { room } = action.payload;
+      return {
+        ...state,
+        room: {
+          ...room,
+          participants: uniq(room.participants),
+        },
       };
     }
     default:
