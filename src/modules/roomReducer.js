@@ -26,7 +26,17 @@ const reducer = (state = initialState, action) => {
         room,
       };
     }
-    case actions.ENTER_ROOM.REQUEST: {
+    case actions.ENTER_ROOM: {
+      const { room } = action.payload;
+      return {
+        ...state,
+        room: {
+          ...room,
+          participants: uniq(room.participants),
+        },
+      };
+    }
+    case actions.LEAVE_ROOM: {
       const { room } = action.payload;
       return {
         ...state,

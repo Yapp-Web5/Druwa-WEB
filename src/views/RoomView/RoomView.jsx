@@ -22,7 +22,7 @@ import { SERVER_END_POINT } from "../../configs/server";
 // import * as DefaultActionCreator from "../../actionCreators/_DefaultActionCreator";
 
 import * as styles from "./RoomView.scss";
-import { getRoomRequest, enterRoomRequest } from "actions/roomAction";
+import { getRoomRequest, enterRoom, leaveRoom } from "actions/roomAction";
 // import { enterRoom } from "../../modules/roomReducer";
 
 const defaultProps = {};
@@ -37,7 +37,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   getRoomRequest,
-  enterRoomRequest,
+  enterRoom,
+  leaveRoom,
 };
 
 class RoomView extends Component {
@@ -64,26 +65,29 @@ class RoomView extends Component {
     const roomUrl = match.params.roomId;
     this.props.getRoomRequest(roomUrl);
 
-    const token = localStorage.getItem("token");
-    const socket = socketIO.connect(
-      SERVER_END_POINT,
-      {
-        query: {
-          type: "enter",
-          roomUrl,
-          token,
-        },
-      }
-    );
-    this.setState({
-      socket,
-    });
+    // const token = localStorage.getItem("token");
+    // const socket = socketIO.connect(
+    //   SERVER_END_POINT,
+    //   {
+    //     query: {
+    //       type: "enter",
+    //       roomUrl,
+    //       token,
+    //     },
+    //   }
+    // );
+    // this.setState({
+    //   socket,
+    // });
 
-    socket.on("newEnter", message => {
-      console.log("newEnter", message);
-      this.props.enterRoomRequest(message.room);
-      // dispatch(enterRoom({ room: message.room }));
-    });
+    // socket.on("enter", message => {
+    //   console.log("enter", message);
+    //   this.props.enterRoom(message.room);
+    // });
+    // socket.on("leave", message => {
+    //   console.log("leave", message);
+    //   this.props.leaveRoom(message.room);
+    // });
   }
 
   onDocumentLoad = ({ numPages }) => {

@@ -9,16 +9,14 @@ export const actions = {
     SUCCESS: "GET_ROOM_SUCCESS",
     FAILED: "GET_ROOM_FAILED",
   },
-  ENTER_ROOM: {
-    REQUEST: "ENTER_ROOM_REQUEST",
-    SUCCESS: "ENTER_ROOM_SUCCESS",
-    FAILED: "ENTER_ROOM_FAILED",
-  },
   CREATE_CARD: {
     REQUEST: "CREATE_CARD_REQUEST",
     SUCCESS: "CREATE_CARD_RESPONSE",
     FAILED: "CREATE_CARD_FAILED",
   },
+  CONNECT_SOCKET: "CONNECT_SOCKET",
+  ENTER_ROOM: "ENTER_ROOM",
+  LEAVE_ROOM: "LEAVE_ROOM",
 };
 
 export function createRoomRequest({ title, lecturer, password }) {
@@ -71,17 +69,29 @@ export function getRoomFailed() {
   };
 }
 
-export function enterRoomRequest(room) {
+export function connectSocket(room) {
   return {
-    type: actions.ENTER_ROOM.REQUEST,
+    type: actions.CONNECT_SOCKET,
     payload: {
       room,
     },
   };
 }
 
-export function enterRoomSuccess() {
+export function enterRoom(room) {
   return {
-    type: actions.ENTER_ROOM.SUCCESS,
+    type: actions.ENTER_ROOM,
+    payload: {
+      room,
+    },
+  };
+}
+
+export function leaveRoom(room) {
+  return {
+    type: actions.LEAVE_ROOM,
+    payload: {
+      room,
+    },
   };
 }
