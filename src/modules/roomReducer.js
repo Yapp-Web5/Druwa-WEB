@@ -3,6 +3,7 @@ import { actions } from "actions/roomAction";
 
 const initialState = {
   room: null,
+  socket: null,
 };
 
 const reducer = (state = initialState, action) => {
@@ -49,6 +50,13 @@ const reducer = (state = initialState, action) => {
           ...state.room,
           cards: [...state.room.cards, card],
         },
+      };
+    }
+    case actions.STORE_SOCKET: {
+      const { socket } = action.payload;
+      return {
+        ...state,
+        socket,
       };
     }
     default:

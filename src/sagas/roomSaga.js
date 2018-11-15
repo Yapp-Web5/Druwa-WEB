@@ -18,6 +18,7 @@ import {
   enterRoom,
   leaveRoom,
   receiveCard,
+  storeSocket,
 } from "actions/roomAction";
 import {
   getRoom as getRoomAPI,
@@ -46,7 +47,20 @@ function* onMessage(socket, type, callback) {
       const message = yield take(channel);
       yield put(callback(message.room));
     } catch (e) {
-      alert(e.message);
+      console.error(e.message);
+    }
+  }
+}
+
+function* listenCardSocket(socket, type, callback) {
+  const channel = yield call(socketUtils.createSocketChannel, socket, type);
+
+  while (true) {
+    try {
+      const message = yield take(channel);
+      yield put(callback(message.room));
+    } catch (err) {
+      console.error(err.message);
     }
   }
 }
@@ -54,6 +68,8 @@ function* onMessage(socket, type, callback) {
 function* listenSocket(action) {
   const { room } = action.payload;
   const socket = socketUtils.connectSocket(room);
+  yield put(storeSocket(socket));
+  yield fork(listenCardSocket, socket, "newCard");
   yield fork(onMessage, socket, "enter", enterRoom);
   yield fork(onMessage, socket, "leave", leaveRoom);
 }

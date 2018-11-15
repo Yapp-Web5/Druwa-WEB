@@ -15,6 +15,7 @@ export const actions = {
     FAILED: "CREATE_CARD_FAILED",
   },
   CONNECT_SOCKET: "CONNECT_SOCKET",
+  STORE_SOCKET: "STORE_SOCKET",
   ENTER_ROOM: "ENTER_ROOM",
   LEAVE_ROOM: "LEAVE_ROOM",
 };
@@ -92,6 +93,15 @@ export function leaveRoom(room) {
     type: actions.LEAVE_ROOM,
     payload: {
       room,
+    },
+  };
+}
+
+export function storeSocket(socket) {
+  return {
+    type: actions.STORE_SOCKET,
+    payload: {
+      socket,
     },
   };
 }
