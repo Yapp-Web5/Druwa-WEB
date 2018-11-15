@@ -64,30 +64,6 @@ class RoomView extends Component {
     const { match } = this.props;
     const roomUrl = match.params.roomId;
     this.props.getRoomRequest(roomUrl);
-
-    // const token = localStorage.getItem("token");
-    // const socket = socketIO.connect(
-    //   SERVER_END_POINT,
-    //   {
-    //     query: {
-    //       type: "enter",
-    //       roomUrl,
-    //       token,
-    //     },
-    //   }
-    // );
-    // this.setState({
-    //   socket,
-    // });
-
-    // socket.on("enter", message => {
-    //   console.log("enter", message);
-    //   this.props.enterRoom(message.room);
-    // });
-    // socket.on("leave", message => {
-    //   console.log("leave", message);
-    //   this.props.leaveRoom(message.room);
-    // });
   }
 
   onDocumentLoad = ({ numPages }) => {
