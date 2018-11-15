@@ -16,11 +16,6 @@ import {
 
 import samplepdf from "../../static/ppt.pdf";
 
-import * as socketIO from "socket.io-client";
-import { SERVER_END_POINT } from "../../configs/server";
-
-// import * as DefaultActionCreator from "../../actionCreators/_DefaultActionCreator";
-
 import * as styles from "./RoomView.scss";
 import { getRoomRequest, enterRoom, leaveRoom } from "actions/roomAction";
 // import { enterRoom } from "../../modules/roomReducer";
@@ -30,6 +25,7 @@ const propTypes = {};
 
 const mapStateToProps = state => {
   return {
+    me: state.userReducer.me,
     room: state.roomReducer.room,
     // actionResult: state.reducer.actionResult,
   };

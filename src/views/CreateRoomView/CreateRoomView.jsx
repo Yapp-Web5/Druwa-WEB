@@ -60,11 +60,10 @@ class CreateRoomView extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    console.log("componentWillReceiveProps Event");
-    const { room, history } = nextProps;
-    if (nextProps.room !== null) {
-      history.push(`room/${room.url}`);
+  componentDidUpdate(prevProps) {
+    const { history } = this.props;
+    if (prevProps.room === null && !!this.props.room) {
+      history.push(`room/${this.props.room.url}`);
     }
   }
 

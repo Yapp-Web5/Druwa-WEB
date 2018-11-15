@@ -7,13 +7,8 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actions.CREATE_ROOM_REQUEST: {
-      return {
-        ...state,
-      };
-    }
-    case actions.CREATE_ROOM_SUCEESS: {
-      const room = action.payload.data;
+    case actions.CREATE_ROOM.SUCCESS: {
+      const { room } = action.payload;
       return {
         ...state,
         room,
