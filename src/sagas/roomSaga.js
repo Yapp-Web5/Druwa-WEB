@@ -17,11 +17,13 @@ import {
   connectSocket,
   enterRoom,
   leaveRoom,
+  receiveCard,
 } from "actions/roomAction";
 import {
   getRoom as getRoomAPI,
   createRoom as createRoomAPI,
 } from "api/RoomAPI";
+import { createCard as createCardAPI } from "api/CardAPI";
 
 function* createRoom(action) {
   const { title, lecturer, password } = action.payload;
@@ -34,13 +36,6 @@ function* getRoom(action) {
   const room = yield call(getRoomAPI, roomUrl);
   yield put(getRoomSuccess(room));
   yield put(connectSocket(room));
-}
-
-function* listenSocket(action) {
-  const { room } = action.payload;
-  const socket = socketUtils.connectSocket(room);
-  yield fork(onMessage, socket, "enter", enterRoom);
-  yield fork(onMessage, socket, "leave", leaveRoom);
 }
 
 function* onMessage(socket, type, callback) {
@@ -56,10 +51,24 @@ function* onMessage(socket, type, callback) {
   }
 }
 
+function* listenSocket(action) {
+  const { room } = action.payload;
+  const socket = socketUtils.connectSocket(room);
+  yield fork(onMessage, socket, "enter", enterRoom);
+  yield fork(onMessage, socket, "leave", leaveRoom);
+}
+
+function* createCard(action) {
+  const { roomUrl, content, refPageIdx } = action.payload;
+  const card = yield call(createCardAPI, roomUrl, content, refPageIdx);
+  yield put(receiveCard(card));
+}
+
 export default function* saga() {
   yield all([
     takeLatest(actions.GET_ROOM.REQUEST, getRoom),
     takeLatest(actions.CREATE_ROOM.REQUEST, createRoom),
     takeLatest(actions.CONNECT_SOCKET, listenSocket),
+    takeEvery(actions.CREATE_CARD.REQUEST, createCard),
   ]);
 }

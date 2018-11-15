@@ -31,6 +31,5 @@ export async function getRoom(roomUrl) {
     token,
   };
   const res = await webRequestUtil.get({ url, headers });
-  console.log(res.data);
   return res.data;
 }

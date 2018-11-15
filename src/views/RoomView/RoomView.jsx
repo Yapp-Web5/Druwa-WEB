@@ -17,7 +17,12 @@ import {
 import samplepdf from "../../static/ppt.pdf";
 
 import * as styles from "./RoomView.scss";
-import { getRoomRequest, enterRoom, leaveRoom } from "actions/roomAction";
+import {
+  getRoomRequest,
+  enterRoom,
+  leaveRoom,
+  createCard,
+} from "actions/roomAction";
 // import { enterRoom } from "../../modules/roomReducer";
 
 const defaultProps = {};
@@ -35,6 +40,7 @@ const mapDispatchToProps = {
   getRoomRequest,
   enterRoom,
   leaveRoom,
+  createCard,
 };
 
 class RoomView extends Component {
@@ -107,9 +113,15 @@ class RoomView extends Component {
     });
   };
 
-  render() {
+  handleClickCardSubmit = () => {
     const { room } = this.props;
-    if (!room) {
+    const { cardInput } = this.state;
+    this.props.createCard(room.url, cardInput, 1);
+  };
+
+  render() {
+    const { room, me } = this.props;
+    if (!room || !me) {
       return null;
     }
 
@@ -141,12 +153,13 @@ class RoomView extends Component {
             <div className={styles.body__right__bottom}>
               <div className={styles.body__right__bottom__top}>
                 <div className={styles.body__right__bottom__top__left}>
-                  NAME
+                  {me.username}
                 </div>
                 <div className={styles.body__right__bottom__top__right}>
                   Slide
                 </div>
               </div>
+              <button onClick={this.handleClickCardSubmit}>TEST</button>
               <textarea
                 className={styles.body__right__bottom__textarea}
                 placeholder="내용을 입력하세요"

@@ -95,3 +95,23 @@ export function leaveRoom(room) {
     },
   };
 }
+
+export function createCard(roomUrl, content, refPageIdx) {
+  return {
+    type: actions.CREATE_CARD.REQUEST,
+    payload: {
+      roomUrl,
+      content,
+      refPageIdx,
+    },
+  };
+}
+
+export function receiveCard(card) {
+  return {
+    type: actions.CREATE_CARD.SUCCESS,
+    payload: {
+      card,
+    },
+  };
+}

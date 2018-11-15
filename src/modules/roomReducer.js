@@ -41,6 +41,16 @@ const reducer = (state = initialState, action) => {
         },
       };
     }
+    case actions.CREATE_CARD.SUCCESS: {
+      const { card } = action.payload;
+      return {
+        ...state,
+        room: {
+          ...state.room,
+          cards: [...state.room.cards, card],
+        },
+      };
+    }
     default:
       return state;
   }
