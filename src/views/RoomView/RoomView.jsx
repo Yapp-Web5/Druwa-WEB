@@ -32,6 +32,7 @@ const mapStateToProps = state => {
   return {
     me: state.userReducer.me,
     room: state.roomReducer.room,
+    socket: state.roomReducer.socket,
     // actionResult: state.reducer.actionResult,
   };
 };
@@ -52,13 +53,12 @@ class RoomView extends Component {
       pageNumber: 1,
       isFullscreenEnabled: false,
       open: false,
-      socket: null,
       cardInput: "",
     };
   }
   componentWillMount() {}
   componentWillUnmount() {
-    const { socket } = this.state;
+    const { socket } = this.props;
     socket.close();
   }
 
