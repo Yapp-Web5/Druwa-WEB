@@ -107,7 +107,6 @@ class RoomView extends Component {
 
   handleChangeCardInput = e => {
     const { value } = e.target;
-    console.log(value);
     this.setState({
       cardInput: value,
     });
