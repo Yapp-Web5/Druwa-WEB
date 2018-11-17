@@ -6,6 +6,7 @@ import {
   takeEvery,
   take,
   fork,
+  select,
 } from "redux-saga/effects";
 
 import * as socketUtils from "utils/socketFactory";
@@ -54,11 +55,10 @@ function* onMessage(socket, type, callback) {
 
 function* listenCardSocket(socket, type, callback) {
   const channel = yield call(socketUtils.createSocketChannel, socket, type);
-
   while (true) {
     try {
       const message = yield take(channel);
-      yield put(callback(message.room));
+      yield put(callback(message.card));
     } catch (err) {
       console.error(err.message);
     }
@@ -69,7 +69,7 @@ function* listenSocket(action) {
   const { room } = action.payload;
   const socket = socketUtils.connectSocket(room);
   yield put(storeSocket(socket));
-  yield fork(listenCardSocket, socket, "newCard");
+  yield fork(listenCardSocket, socket, "newCard", receiveCard);
   yield fork(onMessage, socket, "enter", enterRoom);
   yield fork(onMessage, socket, "leave", leaveRoom);
 }
