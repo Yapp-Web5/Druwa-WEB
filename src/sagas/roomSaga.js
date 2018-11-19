@@ -15,6 +15,7 @@ import {
   actions,
   getRoomSuccess,
   createRoomSuccess,
+  updateRoomSuccess,
   connectSocket,
   enterRoom,
   leaveRoom,
@@ -27,6 +28,7 @@ import {
 import {
   getRoom as getRoomAPI,
   createRoom as createRoomAPI,
+  updateRoom as updateRoomAPI,
 } from "api/RoomAPI";
 
 import {
@@ -40,6 +42,17 @@ function* createRoom(action) {
   const { title, lecturer, password } = action.payload;
   const room = yield call(createRoomAPI, { title, lecturer, password });
   yield put(createRoomSuccess(room));
+}
+
+function* updateRoom(action) {
+  const { title, lecturer, password, roomUrl } = action.payload;
+  yield call(updateRoomAPI, {
+    title,
+    lecturer,
+    password,
+    roomUrl,
+  });
+  yield put(updateRoomSuccess(title, lecturer, password));
 }
 
 function* getRoom(action) {
@@ -108,6 +121,7 @@ export default function* saga() {
   yield all([
     takeLatest(actions.GET_ROOM.REQUEST, getRoom),
     takeLatest(actions.CREATE_ROOM.REQUEST, createRoom),
+    takeLatest(actions.UPDATE_ROOM.REQUEST, updateRoom),
     takeLatest(actions.CONNECT_SOCKET, listenSocket),
     takeEvery(actions.CREATE_CARD.REQUEST, watchCreateCard),
     takeEvery(actions.LIKE_CARD.REQUEST, watchLikeCard, true),

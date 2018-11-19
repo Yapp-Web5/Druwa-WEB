@@ -24,6 +24,21 @@ export async function createRoom({ title, lecturer, password }) {
   return res.data;
 }
 
+export async function updateRoom({ title, lecturer, password, roomUrl }) {
+  const token = localStorage.getItem("token");
+  const url = `api/rooms/${roomUrl}`;
+  const headers = {
+    token,
+  };
+  const body = {
+    title,
+    lecturer,
+    password,
+  };
+  const res = await webRequestUtil.put({ url, headers, body });
+  return res.data;
+}
+
 export async function getRoom(roomUrl) {
   const token = localStorage.getItem("token");
   const url = `api/rooms/${roomUrl}`;

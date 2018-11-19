@@ -5,7 +5,7 @@ import Dropzone from "react-dropzone";
 
 import { Button, NavigationBar, Futura, Highlight } from "../../components";
 
-import { createRoomRequest } from "actions/roomAction";
+import { createRoomRequest, updateRoomRequest } from "actions/roomAction";
 
 import * as styles from "./CreateRoomView.scss";
 import { uploadPDF } from "../../api/UploadAPI";
@@ -23,6 +23,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   createRoomRequest,
+  updateRoomRequest,
 };
 
 class CreateRoomView extends Component {
@@ -36,25 +37,17 @@ class CreateRoomView extends Component {
   };
 
   componentDidMount() {
-    console.log(this.props.room);
-    const roomId = this.props.match.params.roomId;
-    console.log("업데이트 인가?[" + roomId + "]");
+    const { room } = this.props;
 
-    //Room 정보 Update할 경우
-    if (roomId) {
-      //1. User Token이 Master인지 조회
-      this.props.getAdmin(roomId);
-
-      if (this.props.data.admin) {
-        //2. Room 정보 가져와서 셋팅
-        this.props.getRoom(roomId).then(() => {
-          this.setState({
-            files: this.props.data.files,
-            title: this.props.data.title,
-            writer: this.props.data.writer,
-            password: this.props.data.password,
-            isUpdate: true,
-          });
+    if (room) {
+      if (room) {
+        //server에서 file path room에 반환(filename)
+        this.setState({
+          //files: room.files,
+          title: room.title,
+          lecturer: room.lecturer,
+          password: room.password,
+          isUpdate: true,
         });
       }
     }
@@ -62,8 +55,21 @@ class CreateRoomView extends Component {
 
   componentDidUpdate(prevProps) {
     const { history } = this.props;
-    if (prevProps.room === null && !!this.props.room) {
-      history.push(`room/${this.props.room.url}`);
+    const { isUpdate } = this.state;
+    if (!isUpdate) {
+      if (prevProps.room === null && !!this.props.room) {
+        history.push(`room/${this.props.room.url}`);
+      }
+    } else {
+      const prevRoom = prevProps.room;
+      const curRoom = this.props.room;
+      let ret = false;
+
+      if (prevRoom.title !== curRoom.title) ret = true;
+      else if (prevRoom.lecturer !== curRoom.lecturer) ret = true;
+      else if (prevRoom.password !== curRoom.password) ret = true;
+
+      if (ret) history.push(`room/${curRoom.url}`);
     }
   }
 
@@ -79,8 +85,19 @@ class CreateRoomView extends Component {
    * 관리자가 생성/수정 버튼 클릭 시 발생하는 fn
    */
   handleUpload = event => {
-    const { title, lecturer, password, files } = this.state;
-    this.props.createRoomRequest({ title, lecturer, password });
+    const { title, lecturer, password, isUpdate } = this.state;
+    if (!isUpdate) {
+      this.props.createRoomRequest({ title, lecturer, password });
+    } else {
+      const { _id } = this.props.room;
+      this.props.updateRoomRequest({
+        title,
+        lecturer,
+        password,
+        roomUrl: _id,
+      });
+    }
+
     // const url = await uploadPDF({ file: files[0] });
     // console.log(url);
     // event.preventDefault();
@@ -229,14 +246,14 @@ class CreateRoomView extends Component {
       <div className={styles.submitForm} name="submitform">
         <Button
           className={styles.submitForm__button}
-          name="btn_cancel"
+          name="btn_ok"
           onClick={this.handleUpload}
         >
           <Futura>OK</Futura>
         </Button>
         <Button
           className={styles.submitForm__button}
-          name="btn_ok"
+          name="btn_cancel"
           onClick={this.cancelPage}
         >
           <Futura>CANCEL</Futura>

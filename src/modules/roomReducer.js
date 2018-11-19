@@ -22,6 +22,18 @@ const reducer = (state = initialState, action) => {
         room,
       };
     }
+    case actions.UPDATE_ROOM.SUCCESS: {
+      const { title, lecturer, password } = action.payload;
+      return {
+        ...state,
+        room: {
+          ...state.room,
+          title,
+          lecturer,
+          password,
+        },
+      };
+    }
     case actions.ENTER_ROOM: {
       const { room } = action.payload;
       return {

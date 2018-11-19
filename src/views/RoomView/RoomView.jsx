@@ -12,6 +12,7 @@ import {
   PdfViewer,
   PdfElement,
   Card,
+  Button,
 } from "../../components";
 
 import samplepdf from "../../static/ppt.pdf";
@@ -118,6 +119,28 @@ class RoomView extends Component {
     this.props.createCard(room.url, cardInput, 1);
   };
 
+  isAdmin = () => {
+    const { room } = this.props;
+    let ret = false;
+
+    if (room) {
+      const { me } = this.props;
+      const { admins } = room;
+      for (var i in admins) {
+        if (admins[i]._id === me._id) {
+          ret = true;
+          break;
+        }
+      }
+    }
+    return ret;
+  };
+
+  handleClickRoomUpdate = () => {
+    const { history } = this.props;
+    history.push("/room");
+  };
+
   render() {
     const { room, me } = this.props;
     if (!room || !me) {
@@ -129,6 +152,16 @@ class RoomView extends Component {
         <NavigationBar />
         <div className={styles.body}>
           <div className={styles.body__left}>
+            {this.isAdmin() && (
+              <div className={styles.body__left__top}>
+                <Button
+                  className={styles.body__left__top__modify}
+                  onClick={this.handleClickRoomUpdate}
+                >
+                  수정
+                </Button>
+              </div>
+            )}
             <PdfViewer
               file={samplepdf}
               title={room.title}

@@ -9,6 +9,11 @@ export const actions = {
     SUCCESS: "GET_ROOM_SUCCESS",
     FAILED: "GET_ROOM_FAILED",
   },
+  UPDATE_ROOM: {
+    REQUEST: "UPDATE_ROOM_REQUEST",
+    SUCCESS: "UPDATE_ROOM_SUCCESS",
+    FAILED: "UPDATE_ROOM_FAILED",
+  },
   CREATE_CARD: {
     REQUEST: "CREATE_CARD_REQUEST",
     SUCCESS: "CREATE_CARD_RESPONSE",
@@ -82,6 +87,34 @@ export function getRoomSuccess(room) {
 export function getRoomFailed() {
   return {
     type: actions.GET_ROOM.FAILED,
+  };
+}
+export function updateRoomRequest({ title, lecturer, password, roomUrl }) {
+  return {
+    type: actions.UPDATE_ROOM.REQUEST,
+    payload: {
+      title,
+      lecturer,
+      password,
+      roomUrl,
+    },
+  };
+}
+
+export function updateRoomSuccess(title, lecturer, password) {
+  return {
+    type: actions.UPDATE_ROOM.SUCCESS,
+    payload: {
+      title,
+      lecturer,
+      password,
+    },
+  };
+}
+
+export function updateRoomFailed() {
+  return {
+    type: actions.UPDATE_ROOM.FAILED,
   };
 }
 

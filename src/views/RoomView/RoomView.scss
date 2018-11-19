@@ -18,6 +18,16 @@ $right-footer-height: 200px;
     &__left {
       width: calc(100% - 400px);
 
+      &__top {
+        background-color: #745abe;
+
+        > button {
+          color: $white;
+          font-size: 17px;
+          font-weight: bold;
+        }
+      }
+
       &__body {
         height: calc(100% - 160px);
       }
