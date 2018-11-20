@@ -80,11 +80,14 @@ function* createCard(action) {
   yield put(receiveCard(card));
 }
 
+function* likeCard(action) {}
+
 export default function* saga() {
   yield all([
     takeLatest(actions.GET_ROOM.REQUEST, getRoom),
     takeLatest(actions.CREATE_ROOM.REQUEST, createRoom),
     takeLatest(actions.CONNECT_SOCKET, listenSocket),
     takeEvery(actions.CREATE_CARD.REQUEST, createCard),
+    takeEvery(actions.LIKE_CARD.REQUEST, likeCard),
   ]);
 }

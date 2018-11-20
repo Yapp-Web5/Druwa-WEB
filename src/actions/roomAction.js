@@ -14,6 +14,16 @@ export const actions = {
     SUCCESS: "CREATE_CARD_RESPONSE",
     FAILED: "CREATE_CARD_FAILED",
   },
+  LIKE_CARD: {
+    REQUEST: "LIKE_CARD_REQUEST",
+    SUCCESS: "LIKE_CARD_SUCCESS",
+    FAILED: "LIKE_CARD_FAILED",
+  },
+  UNLIKE_CARD: {
+    REQUEST: "UNLIKE_CARD_REQUEST",
+    SUCCESS: "UNLIKE_CARD_SUCCESS",
+    FAILED: "UNLIKE_CARD_FAILED",
+  },
   CONNECT_SOCKET: "CONNECT_SOCKET",
   STORE_SOCKET: "STORE_SOCKET",
   ENTER_ROOM: "ENTER_ROOM",
@@ -120,6 +130,24 @@ export function createCard(roomUrl, content, refPageIdx) {
 export function receiveCard(card) {
   return {
     type: actions.CREATE_CARD.SUCCESS,
+    payload: {
+      card,
+    },
+  };
+}
+
+export function likeCard(card) {
+  return {
+    type: actions.LIKE_CARD.REQUEST,
+    payload: {
+      card,
+    },
+  };
+}
+
+export function unlikeCard(card) {
+  return {
+    type: actions.UNLIKE_CARD.REQUEST,
     payload: {
       card,
     },
