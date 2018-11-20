@@ -24,6 +24,11 @@ export const actions = {
     SUCCESS: "UNLIKE_CARD_SUCCESS",
     FAILED: "UNLIKE_CARD_FAILED",
   },
+  REMOVE_CARD: {
+    REQUEST: "REMOVE_CARD_REQUEST",
+    SUCCESS: "REMOVE_CARD_SUCCESS",
+    FAILED: "REMOVE_CARD_SUCCESS",
+  },
   CONNECT_SOCKET: "CONNECT_SOCKET",
   STORE_SOCKET: "STORE_SOCKET",
   ENTER_ROOM: "ENTER_ROOM",
@@ -148,6 +153,24 @@ export function likeCard(card) {
 export function unlikeCard(card) {
   return {
     type: actions.UNLIKE_CARD.REQUEST,
+    payload: {
+      card,
+    },
+  };
+}
+
+export function removeCard(card) {
+  return {
+    type: actions.REMOVE_CARD.REQUEST,
+    payload: {
+      card,
+    },
+  };
+}
+
+export function removeCardSocket(card) {
+  return {
+    type: actions.REMOVE_CARD.SUCCESS,
     payload: {
       card,
     },

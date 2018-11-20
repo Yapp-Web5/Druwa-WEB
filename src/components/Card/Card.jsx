@@ -6,9 +6,15 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import cx from "classnames";
 
-import { likeCard, unlikeCard } from "actions/roomAction";
+import { likeCard, unlikeCard, removeCard } from "actions/roomAction";
 
 import * as styles from "./Card.scss";
+
+const mapDispatchToProps = {
+  likeCard,
+  unlikeCard,
+  removeCard,
+};
 
 const defaultProps = {
   admin: false,
@@ -18,11 +24,7 @@ const propTypes = {
   me: PropTypes.object,
   likeCard: PropTypes.func,
   unlikeCard: PropTypes.func,
-};
-
-const mapDispatchToProps = {
-  likeCard,
-  unlikeCard,
+  removeCard: PropTypes.func,
 };
 
 class Card extends PureComponent {
@@ -40,6 +42,11 @@ class Card extends PureComponent {
     } else {
       unlikeCard(card);
     }
+  };
+
+  handleClickRemoveButton = () => {
+    const { removeCard, card } = this.props;
+    removeCard(card);
   };
 
   renderLikeButton = () => {
@@ -71,10 +78,11 @@ class Card extends PureComponent {
           </div>
         </div>
         <div className={styles.card__body}>{card.content}</div>
-
         <ul className={styles.card__bottom}>
           <li>{this.renderLikeButton()}</li>
-          <li>item</li>
+          <li onClick={this.handleClickRemoveButton}>
+            <i className="xi-trash-o" />
+          </li>
           <li>item</li>
         </ul>
       </div>

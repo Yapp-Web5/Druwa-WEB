@@ -20,6 +20,8 @@ import {
   leaveRoom,
   receiveCard,
   storeSocket,
+  removeCard,
+  removeCardSocket,
 } from "actions/roomAction";
 
 import {
@@ -31,6 +33,7 @@ import {
   createCard as createCardAPI,
   likeCard as likeCardAPI,
   unlikeCard as unlikeCardAPI,
+  removeCard as removeCardAPI,
 } from "api/CardAPI";
 
 function* createRoom(action) {
@@ -76,17 +79,18 @@ function* listenSocket(action) {
   const socket = socketUtils.connectSocket(room);
   yield put(storeSocket(socket));
   yield fork(listenCardSocket, socket, "newCard", receiveCard);
+  yield fork(listenCardSocket, socket, "removeCard", removeCardSocket);
   yield fork(onMessage, socket, "enter", enterRoom);
   yield fork(onMessage, socket, "leave", leaveRoom);
 }
 
-function* createCard(action) {
+function* watchCreateCard(action) {
   const { roomUrl, content, refPageIdx } = action.payload;
   const card = yield call(createCardAPI, roomUrl, content, refPageIdx);
   yield put(receiveCard(card));
 }
 
-function* likeCard(isLike, action) {
+function* watchLikeCard(isLike, action) {
   const { card } = action.payload;
   const room = yield select(state => state.roomReducer.room);
   const api = isLike ? likeCardAPI : unlikeCardAPI;
@@ -94,13 +98,20 @@ function* likeCard(isLike, action) {
   yield put(receiveCard(updatedCard));
 }
 
+function* watchRemoveCard(action) {
+  const { card } = action.payload;
+  const room = yield select(state => state.roomReducer.room);
+  yield call(removeCardAPI, room.url, card._id);
+}
+
 export default function* saga() {
   yield all([
     takeLatest(actions.GET_ROOM.REQUEST, getRoom),
     takeLatest(actions.CREATE_ROOM.REQUEST, createRoom),
     takeLatest(actions.CONNECT_SOCKET, listenSocket),
-    takeEvery(actions.CREATE_CARD.REQUEST, createCard),
-    takeEvery(actions.LIKE_CARD.REQUEST, likeCard, true),
-    takeEvery(actions.UNLIKE_CARD.REQUEST, likeCard, false),
+    takeEvery(actions.CREATE_CARD.REQUEST, watchCreateCard),
+    takeEvery(actions.LIKE_CARD.REQUEST, watchLikeCard, true),
+    takeEvery(actions.UNLIKE_CARD.REQUEST, watchLikeCard, false),
+    takeEvery(actions.REMOVE_CARD.REQUEST, watchRemoveCard),
   ]);
 }
