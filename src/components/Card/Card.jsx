@@ -1,22 +1,25 @@
 // This Component is Skeleton of React Structure for Web Development
 // If you want to make other Component, Copy and Refactor this Component.
 
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import cx from "classnames";
 import * as styles from "./Card.scss";
 
 const defaultProps = {
   admin: false,
 };
-const propTypes = {};
+const propTypes = {
+  me: Object,
+};
 
-class Card extends Component {
+class Card extends PureComponent {
   constructor(props) {
     super(props);
   }
 
   render() {
-    const { admin, className, card } = this.props;
+    const { admin, className, card, me } = this.props;
+    const isLike = card.likes.some(likeUser => likeUser._id === me._id);
     return (
       <div
         className={cx(className, styles.card, {
@@ -32,7 +35,15 @@ class Card extends Component {
           </div>
         </div>
         <div className={styles.card__body}>{card.content}</div>
-        <div className={styles.card__bottom}>icon cion cion</div>
+
+        <ul className={styles.card__bottom}>
+          <li>
+            <i className={cx({ "xi-heart-o": !isLike, "xi-heart": isLike })} />
+            {card.likes.length}
+          </li>
+          <li>item</li>
+          <li>item</li>
+        </ul>
       </div>
     );
   }

@@ -145,7 +145,14 @@ class RoomView extends Component {
             </div>
             <div className={styles.body__right__body}>
               {room.cards.map(card => {
-                return <Card key={card._id} admin={card.isAdmin} card={card} />;
+                return (
+                  <Card
+                    key={card._id}
+                    admin={card.isAdmin}
+                    card={card}
+                    me={me}
+                  />
+                );
               })}
             </div>
             <div className={styles.body__right__bottom}>
