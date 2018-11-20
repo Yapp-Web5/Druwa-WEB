@@ -21,11 +21,17 @@ import {
   receiveCard,
   storeSocket,
 } from "actions/roomAction";
+
 import {
   getRoom as getRoomAPI,
   createRoom as createRoomAPI,
 } from "api/RoomAPI";
-import { createCard as createCardAPI } from "api/CardAPI";
+
+import {
+  createCard as createCardAPI,
+  likeCard as likeCardAPI,
+  unlikeCard as unlikeCardAPI,
+} from "api/CardAPI";
 
 function* createRoom(action) {
   const { title, lecturer, password } = action.payload;
@@ -80,7 +86,13 @@ function* createCard(action) {
   yield put(receiveCard(card));
 }
 
-function* likeCard(action) {}
+function* likeCard(isLike, action) {
+  const { card } = action.payload;
+  const room = yield select(state => state.roomReducer.room);
+  const api = isLike ? likeCardAPI : unlikeCardAPI;
+  const updatedCard = yield call(api, room.url, card._id);
+  yield put(receiveCard(updatedCard));
+}
 
 export default function* saga() {
   yield all([
@@ -88,6 +100,7 @@ export default function* saga() {
     takeLatest(actions.CREATE_ROOM.REQUEST, createRoom),
     takeLatest(actions.CONNECT_SOCKET, listenSocket),
     takeEvery(actions.CREATE_CARD.REQUEST, createCard),
-    takeEvery(actions.LIKE_CARD.REQUEST, likeCard),
+    takeEvery(actions.LIKE_CARD.REQUEST, likeCard, true),
+    takeEvery(actions.UNLIKE_CARD.REQUEST, likeCard, false),
   ]);
 }

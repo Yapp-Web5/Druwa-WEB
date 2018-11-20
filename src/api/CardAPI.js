@@ -26,6 +26,16 @@ export async function likeCard(roomUrl, cardId) {
   const headers = {
     token,
   };
-  const res = await webRequestUtil.post({ url, headers });
+  const res = await webRequestUtil.put({ url, headers });
+  return res.data;
+}
+
+export async function unlikeCard(roomUrl, cardId) {
+  const token = getUserToken();
+  const url = `api/cards/${roomUrl}/${cardId}/unlike`;
+  const headers = {
+    token,
+  };
+  const res = await webRequestUtil.put({ url, headers });
   return res.data;
 }
