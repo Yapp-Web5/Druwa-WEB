@@ -34,12 +34,29 @@
       color: #6e6e6e;
     }
   }
+
   &__body {
     padding-top: 13px;
     padding-bottom: 20px;
   }
+
   &__bottom {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     border-top: 2px solid #dcdcdc;
+    font-size: 0.8rem;
+
+    > li {
+      display: inline-flex;
+      align-items: center;
+      padding-top: 0.5rem;
+      margin-right: 0.5rem;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
   }
 }
 

@@ -1,22 +1,61 @@
 // This Component is Skeleton of React Structure for Web Development
 // If you want to make other Component, Copy and Refactor this Component.
 
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import cx from "classnames";
+
+import { likeCard, unlikeCard } from "actions/roomAction";
+
 import * as styles from "./Card.scss";
 
 const defaultProps = {
   admin: false,
 };
-const propTypes = {};
 
-class Card extends Component {
-  constructor(props) {
-    super(props);
-  }
+const propTypes = {
+  me: PropTypes.object,
+  likeCard: PropTypes.func,
+  unlikeCard: PropTypes.func,
+};
+
+const mapDispatchToProps = {
+  likeCard,
+  unlikeCard,
+};
+
+class Card extends PureComponent {
+  checkIsLike = () => {
+    const { card, me } = this.props;
+    return card.likes.some(likeUser => likeUser._id === me._id);
+  };
+
+  handleClickLikeButton = () => {
+    const { card, me, likeCard, unlikeCard } = this.props;
+    const isLike = card.likes.some(likeUser => likeUser._id === me._id);
+
+    if (!isLike) {
+      likeCard(card);
+    } else {
+      unlikeCard(card);
+    }
+  };
+
+  renderLikeButton = () => {
+    const { card } = this.props;
+    const isLike = this.checkIsLike();
+    return (
+      <span onClick={this.handleClickLikeButton}>
+        <i className={cx({ "xi-heart-o": !isLike, "xi-heart": isLike })} />
+        {card.likes.length}
+      </span>
+    );
+  };
 
   render() {
     const { admin, className, card } = this.props;
+
     return (
       <div
         className={cx(className, styles.card, {
@@ -32,7 +71,12 @@ class Card extends Component {
           </div>
         </div>
         <div className={styles.card__body}>{card.content}</div>
-        <div className={styles.card__bottom}>icon cion cion</div>
+
+        <ul className={styles.card__bottom}>
+          <li>{this.renderLikeButton()}</li>
+          <li>item</li>
+          <li>item</li>
+        </ul>
       </div>
     );
   }
@@ -41,4 +85,7 @@ class Card extends Component {
 Card.defaultProps = defaultProps;
 Card.propTypes = propTypes;
 
-export default Card;
+export default connect(
+  null,
+  mapDispatchToProps
+)(Card);
