@@ -81,6 +81,28 @@ const reducer = (state = initialState, action) => {
         socket,
       };
     }
+    case actions.REMOVE_CARD.REQUEST:
+    case actions.REMOVE_CARD.SUCCESS: {
+      const { card } = action.payload;
+      const idx = state.room.cards.findIndex(item => {
+        return item._id === card._id;
+      });
+      if (idx !== -1) {
+        return {
+          ...state,
+          room: {
+            ...state.room,
+            cards: [
+              ...state.room.cards.slice(0, idx),
+              ...state.room.cards.slice(idx + 1),
+            ],
+          },
+        };
+      }
+      return {
+        ...state,
+      };
+    }
     default:
       return state;
   }

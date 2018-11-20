@@ -39,3 +39,13 @@ export async function unlikeCard(roomUrl, cardId) {
   const res = await webRequestUtil.put({ url, headers });
   return res.data;
 }
+
+export async function removeCard(roomUrl, cardId) {
+  const token = getUserToken();
+  const url = `api/cards/${roomUrl}/${cardId}`;
+  const headers = {
+    token,
+  };
+  const res = await webRequestUtil.del({ url, headers });
+  return res.data;
+}

@@ -1,7 +1,7 @@
 /*
-* Author: @nayunhwan (github.com/nayunhwan)
-* Email: nayunhwan.dev@gmail.com
-*/
+ * Author: @nayunhwan (github.com/nayunhwan)
+ * Email: nayunhwan.dev@gmail.com
+ */
 
 import { SERVER_END_POINT } from "../configs/server";
 import axios from "axios";
@@ -36,7 +36,7 @@ export const post = ({ url, headers, body }) => {
 };
 
 export const del = ({ url, headers, body }) => {
-  return basicRequest("DEL", { url, headers, body });
+  return basicRequest("DELETE", { url, headers, body });
 };
 
 export const put = ({ url, headers, body }) => {
