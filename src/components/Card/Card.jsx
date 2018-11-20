@@ -28,6 +28,11 @@ const propTypes = {
 };
 
 class Card extends PureComponent {
+  isMine = () => {
+    const { me, card } = this.props;
+    return card.author._id === me._id;
+  };
+
   checkIsLike = () => {
     const { card, me } = this.props;
     return card.likes.some(likeUser => likeUser._id === me._id);
@@ -62,7 +67,7 @@ class Card extends PureComponent {
 
   render() {
     const { admin, className, card } = this.props;
-
+    const isMine = this.isMine();
     return (
       <div
         className={cx(className, styles.card, {
@@ -80,9 +85,11 @@ class Card extends PureComponent {
         <div className={styles.card__body}>{card.content}</div>
         <ul className={styles.card__bottom}>
           <li>{this.renderLikeButton()}</li>
-          <li onClick={this.handleClickRemoveButton}>
-            <i className="xi-trash-o" />
-          </li>
+          {isMine && (
+            <li onClick={this.handleClickRemoveButton}>
+              <i className="xi-trash-o" />
+            </li>
+          )}
           <li>item</li>
         </ul>
       </div>
