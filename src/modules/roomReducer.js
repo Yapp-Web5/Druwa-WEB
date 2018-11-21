@@ -34,6 +34,16 @@ const reducer = (state = initialState, action) => {
         },
       };
     }
+    case actions.UPLOAD_PDF.SUCCESS: {
+      const { pdfPath } = action.payload;
+      return {
+        ...state,
+        room: {
+          ...state.room,
+          pdfPath,
+        },
+      };
+    }
     case actions.ENTER_ROOM: {
       const { room } = action.payload;
       return {

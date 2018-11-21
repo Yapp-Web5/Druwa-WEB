@@ -5,10 +5,13 @@ import Dropzone from "react-dropzone";
 
 import { Button, NavigationBar, Futura, Highlight } from "../../components";
 
-import { createRoomRequest, updateRoomRequest } from "actions/roomAction";
+import {
+  createRoomRequest,
+  updateRoomRequest,
+  uploadPDFRequest,
+} from "actions/roomAction";
 
 import * as styles from "./CreateRoomView.scss";
-import { uploadPDF } from "../../api/UploadAPI";
 
 const defaultProps = {};
 const propTypes = {};
@@ -16,14 +19,13 @@ const propTypes = {};
 const mapStateToProps = state => {
   return {
     room: state.roomReducer.room,
-    // status: state.createroom.status,
-    // data: state.createroom.data,
   };
 };
 
 const mapDispatchToProps = {
   createRoomRequest,
   updateRoomRequest,
+  uploadPDFRequest,
 };
 
 class CreateRoomView extends Component {
@@ -58,7 +60,20 @@ class CreateRoomView extends Component {
     const { isUpdate } = this.state;
     if (!isUpdate) {
       if (prevProps.room === null && !!this.props.room) {
-        history.push(`room/${this.props.room.url}`);
+        if (this.props.room.pdfPath && !this.props.room.title) {
+          //동기 처리를 위해 방 생성 call 위치 수정
+          const { title, lecturer, password } = this.state;
+          const { pdfPath } = this.props.room;
+          this.props.createRoomRequest({
+            title,
+            lecturer,
+            password,
+            pdfPath,
+          });
+        }
+      } else {
+        if (this.props.room && this.props.room.title)
+          history.push(`room/${this.props.room.url}`);
       }
     } else {
       const prevRoom = prevProps.room;
@@ -85,9 +100,11 @@ class CreateRoomView extends Component {
    * 관리자가 생성/수정 버튼 클릭 시 발생하는 fn
    */
   handleUpload = event => {
-    const { title, lecturer, password, isUpdate } = this.state;
+    const { title, lecturer, password, isUpdate, files } = this.state;
     if (!isUpdate) {
-      this.props.createRoomRequest({ title, lecturer, password });
+      const data = new FormData();
+      data.append("uploadfile", files[0]);
+      this.props.uploadPDFRequest(data);
     } else {
       const { _id } = this.props.room;
       this.props.updateRoomRequest({
@@ -97,38 +114,6 @@ class CreateRoomView extends Component {
         roomUrl: _id,
       });
     }
-
-    // const url = await uploadPDF({ file: files[0] });
-    // console.log(url);
-    // event.preventDefault();
-    // const { files, title, writer, password, isUpdate } = this.state;
-    // //파일 업로드->제목->작성자 순으로 focus 이동시켜 버리기
-    // if (files.length < 1 || !title || !writer) {
-    //   let strBuffer = "";
-    //   strBuffer += files.length < 1 ? "파일 업로드 " : "";
-    //   strBuffer += !title ? "제목 " : "";
-    //   strBuffer += !writer ? "작성자 " : "";
-    //   strBuffer += " 입력하세요.";
-    //   alert(strBuffer);
-    //   return false;
-    // }
-    // //FormData 형식으로 Data 가공
-    // const formData = new FormData();
-    // formData.append("file", files);
-    // formData.append("title", title);
-    // formData.append("writer", writer);
-    // formData.append("password", password);
-    // if (isUpdate) {
-    //   this.props.updateRoom(formData).then(() => {
-    //     if (this.props.status === "SUCCEED_UPDATE_ROOM")
-    //       this.setState({ isDone: true });
-    //   });
-    // } else {
-    //   this.props.setRoom(formData).then(() => {
-    //     if (this.props.status === "SUCCEED_CREATE_ROOM")
-    //       this.setState({ isDone: true });
-    //   });
-    // }
   };
 
   /**

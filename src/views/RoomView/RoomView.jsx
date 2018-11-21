@@ -55,6 +55,7 @@ class RoomView extends Component {
       isFullscreenEnabled: false,
       open: false,
       cardInput: "",
+      file: "",
     };
   }
   componentWillMount() {}
@@ -67,6 +68,18 @@ class RoomView extends Component {
     const { match } = this.props;
     const roomUrl = match.params.roomId;
     this.props.getRoomRequest(roomUrl);
+    if (!this.state.file && this.props.room && this.props.room.pdfPath) {
+      const { pdfPath: file } = this.props.room;
+      this.setState({ file });
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { room } = this.props;
+    if (!room) {
+      const { pdfPath: file } = nextProps.room;
+      this.setState({ file });
+    }
   }
 
   onDocumentLoad = ({ numPages }) => {
@@ -143,6 +156,7 @@ class RoomView extends Component {
 
   render() {
     const { room, me } = this.props;
+    const { file } = this.state;
     if (!room || !me) {
       return null;
     }
@@ -163,7 +177,7 @@ class RoomView extends Component {
               </div>
             )}
             <PdfViewer
-              file={samplepdf}
+              file={file}
               title={room.title}
               writer={room.lecturer}
               date={moment(room.createdAt).format("YYYY-MM-DD")}

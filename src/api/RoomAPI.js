@@ -5,19 +5,20 @@
 
 import * as webRequestUtil from "../utils/webRequestUtil";
 
-export async function createRoom({ title, lecturer, password }) {
+export async function createRoom({ title, lecturer, password, pdfPath }) {
   const token = localStorage.getItem("token");
   const url = "api/rooms";
   const headers = {
     token,
   };
+
   const body = {
     title,
     lecturer,
     description: "",
     maxParticipants: 100,
     isPublic: false,
-    pdfPath: "",
+    pdfPath: pdfPath,
     password,
   };
   const res = await webRequestUtil.post({ url, headers, body });

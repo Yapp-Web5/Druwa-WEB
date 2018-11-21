@@ -6,18 +6,27 @@
 import { SERVER_END_POINT } from "../configs/server";
 import axios from "axios";
 
-const basicRequest = (type, { url, headers, body, origin }) => {
-  const config = {
-    method: type,
-    url: origin ? origin : SERVER_END_POINT + url,
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      ...headers,
-    },
-    data: body,
-  };
-
+const basicRequest = (type, { url, headers, body, origin, data }) => {
+  let config;
+  if (data) {
+    config = {
+      method: type,
+      url: origin ? origin : SERVER_END_POINT + url,
+      headers: { ...headers },
+      data,
+    };
+  } else {
+    config = {
+      method: type,
+      url: origin ? origin : SERVER_END_POINT + url,
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        ...headers,
+      },
+      data: body,
+    };
+  }
   return axios(config)
     .then(res => {
       return res;
@@ -31,8 +40,8 @@ export const get = ({ url, headers, body }) => {
   return basicRequest("GET", { url, headers, body });
 };
 
-export const post = ({ url, headers, body }) => {
-  return basicRequest("POST", { url, headers, body });
+export const post = ({ url, headers, body, data }) => {
+  return basicRequest("POST", { url, headers, body, data });
 };
 
 export const del = ({ url, headers, body }) => {

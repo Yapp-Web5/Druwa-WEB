@@ -16,6 +16,8 @@ import {
   getRoomSuccess,
   createRoomSuccess,
   updateRoomSuccess,
+  uploadPDFSuccess,
+  uploadPDFFailed,
   connectSocket,
   enterRoom,
   leaveRoom,
@@ -38,9 +40,16 @@ import {
   removeCard as removeCardAPI,
 } from "api/CardAPI";
 
+import { uploadPDF as uploadPDFAPI } from "api/UploadAPI";
+
 function* createRoom(action) {
-  const { title, lecturer, password } = action.payload;
-  const room = yield call(createRoomAPI, { title, lecturer, password });
+  const { title, lecturer, password, pdfPath } = action.payload;
+  const room = yield call(createRoomAPI, {
+    title,
+    lecturer,
+    password,
+    pdfPath,
+  });
   yield put(createRoomSuccess(room));
 }
 
@@ -60,6 +69,16 @@ function* getRoom(action) {
   const room = yield call(getRoomAPI, roomUrl);
   yield put(getRoomSuccess(room));
   yield put(connectSocket(room));
+}
+
+function* uploadPDF(action) {
+  const { data } = action.payload;
+  try {
+    const pdfPath = yield call(uploadPDFAPI, { data });
+    yield put(uploadPDFSuccess(pdfPath));
+  } catch (e) {
+    yield put(uploadPDFFailed());
+  }
 }
 
 function* onMessage(socket, type, callback) {
@@ -122,6 +141,7 @@ export default function* saga() {
     takeLatest(actions.GET_ROOM.REQUEST, getRoom),
     takeLatest(actions.CREATE_ROOM.REQUEST, createRoom),
     takeLatest(actions.UPDATE_ROOM.REQUEST, updateRoom),
+    takeLatest(actions.UPLOAD_PDF.REQUEST, uploadPDF),
     takeLatest(actions.CONNECT_SOCKET, listenSocket),
     takeEvery(actions.CREATE_CARD.REQUEST, watchCreateCard),
     takeEvery(actions.LIKE_CARD.REQUEST, watchLikeCard, true),
