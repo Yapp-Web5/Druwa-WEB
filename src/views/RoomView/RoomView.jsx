@@ -132,7 +132,13 @@ class RoomView extends Component {
     this.props.createCard(room.url, cardInput, 1);
   };
 
-  isAdmin = () => {
+isAdmin = () => {
+    const { me, room } = this.props;
+    if (room) {
+      return room.admins.some(admin => admin._id === me._id)
+    }
+    return false;
+  }
     const { room } = this.props;
     let ret = false;
 
