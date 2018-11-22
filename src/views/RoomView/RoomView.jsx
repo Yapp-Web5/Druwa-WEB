@@ -4,6 +4,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Fullscreen from "react-fullscreen-crossbrowser";
+import { Menu, MenuItem } from "@material-ui/core";
 import moment from "moment";
 
 import {
@@ -44,6 +45,8 @@ const mapDispatchToProps = {
   createCard,
 };
 
+const ITEM_HEIGHT = 48;
+
 class RoomView extends Component {
   constructor(props) {
     super(props);
@@ -54,6 +57,7 @@ class RoomView extends Component {
       isFullscreenEnabled: false,
       open: false,
       cardInput: "",
+      anchorEl: null,
     };
   }
   componentWillMount() {}
@@ -118,11 +122,38 @@ class RoomView extends Component {
     this.props.createCard(room.url, cardInput, 1);
   };
 
+  handleClick = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  handleClose = () => {
+    this.setState({ anchorEl: null });
+  };
+
   render() {
     const { room, me } = this.props;
     if (!room || !me) {
       return null;
     }
+    const { anchorEl } = this.state;
+    const open = Boolean(anchorEl);
+
+    const options = [
+      "None",
+      "Atria",
+      "Callisto",
+      "Dione",
+      "Ganymede",
+      "Hangouts Call",
+      "Luna",
+      "Oberon",
+      "Phobos",
+      "Pyxis",
+      "Sedna",
+      "Titania",
+      "Triton",
+      "Umbriel",
+    ];
 
     return (
       <div className={styles.roomView} onKeyUp={this.handleOnKeyup}>
@@ -160,10 +191,35 @@ class RoomView extends Component {
                 <div className={styles.body__right__bottom__top__left}>
                   {me.username}
                 </div>
-                <div className={styles.body__right__bottom__top__right}>
+                <div
+                  className={styles.body__right__bottom__top__right}
+                  onClick={this.handleClick}
+                >
                   Slide
                 </div>
               </div>
+              <Menu
+                id="long-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={this.handleClose}
+                PaperProps={{
+                  style: {
+                    maxHeight: ITEM_HEIGHT * 4.5,
+                    width: 200,
+                  },
+                }}
+              >
+                {options.map(option => (
+                  <MenuItem
+                    key={option}
+                    selected={option === "Pyxis"}
+                    onClick={this.handleClose}
+                  >
+                    {option}
+                  </MenuItem>
+                ))}
+              </Menu>
               <button onClick={this.handleClickCardSubmit}>TEST</button>
               <textarea
                 className={styles.body__right__bottom__textarea}
