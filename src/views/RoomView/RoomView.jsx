@@ -12,6 +12,7 @@ import {
   PdfViewer,
   PdfElement,
   Card,
+  Button,
 } from "../../components";
 
 import samplepdf from "../../static/ppt.pdf";
@@ -54,6 +55,7 @@ class RoomView extends Component {
       isFullscreenEnabled: false,
       open: false,
       cardInput: "",
+      file: "",
     };
   }
   componentWillMount() {}
@@ -66,6 +68,18 @@ class RoomView extends Component {
     const { match } = this.props;
     const roomUrl = match.params.roomId;
     this.props.getRoomRequest(roomUrl);
+    if (!this.state.file && this.props.room && this.props.room.pdfPath) {
+      const { pdfPath: file } = this.props.room;
+      this.setState({ file });
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { room } = this.props;
+    if (!room) {
+      const { pdfPath: file } = nextProps.room;
+      this.setState({ file });
+    }
   }
 
   onDocumentLoad = ({ numPages }) => {
@@ -118,8 +132,22 @@ class RoomView extends Component {
     this.props.createCard(room.url, cardInput, 1);
   };
 
+  isAdmin = () => {
+    const { me, room } = this.props;
+    if (room) {
+      return room.admins.some(admin => admin._id === me._id);
+    }
+    return false;
+  };
+
+  handleClickRoomUpdate = () => {
+    const { history } = this.props;
+    history.push("/room");
+  };
+
   render() {
     const { room, me } = this.props;
+    const { file } = this.state;
     if (!room || !me) {
       return null;
     }
@@ -129,8 +157,18 @@ class RoomView extends Component {
         <NavigationBar />
         <div className={styles.body}>
           <div className={styles.body__left}>
+            {this.isAdmin() && (
+              <div className={styles.body__left__top}>
+                <Button
+                  className={styles.body__left__top__modify}
+                  onClick={this.handleClickRoomUpdate}
+                >
+                  수정
+                </Button>
+              </div>
+            )}
             <PdfViewer
-              file={samplepdf}
+              file={file}
               title={room.title}
               writer={room.lecturer}
               date={moment(room.createdAt).format("YYYY-MM-DD")}

@@ -9,6 +9,11 @@ export const actions = {
     SUCCESS: "GET_ROOM_SUCCESS",
     FAILED: "GET_ROOM_FAILED",
   },
+  UPDATE_ROOM: {
+    REQUEST: "UPDATE_ROOM_REQUEST",
+    SUCCESS: "UPDATE_ROOM_SUCCESS",
+    FAILED: "UPDATE_ROOM_FAILED",
+  },
   CREATE_CARD: {
     REQUEST: "CREATE_CARD_REQUEST",
     SUCCESS: "CREATE_CARD_RESPONSE",
@@ -29,19 +34,25 @@ export const actions = {
     SUCCESS: "REMOVE_CARD_SUCCESS",
     FAILED: "REMOVE_CARD_SUCCESS",
   },
+  UPLOAD_PDF: {
+    REQUEST: "UPLOAD_PDF_REQUEST",
+    SUCCESS: "UPLOAD_PDF_SUCCESS",
+    FAILED: "UPLOAD_PDF_FAILED",
+  },
   CONNECT_SOCKET: "CONNECT_SOCKET",
   STORE_SOCKET: "STORE_SOCKET",
   ENTER_ROOM: "ENTER_ROOM",
   LEAVE_ROOM: "LEAVE_ROOM",
 };
 
-export function createRoomRequest({ title, lecturer, password }) {
+export function createRoomRequest({ title, lecturer, password, pdfPath }) {
   return {
     type: actions.CREATE_ROOM.REQUEST,
     payload: {
       title,
       lecturer,
       password,
+      pdfPath,
     },
   };
 }
@@ -82,6 +93,58 @@ export function getRoomSuccess(room) {
 export function getRoomFailed() {
   return {
     type: actions.GET_ROOM.FAILED,
+  };
+}
+export function updateRoomRequest({ title, lecturer, password, roomUrl }) {
+  return {
+    type: actions.UPDATE_ROOM.REQUEST,
+    payload: {
+      title,
+      lecturer,
+      password,
+      roomUrl,
+    },
+  };
+}
+
+export function updateRoomSuccess(title, lecturer, password) {
+  return {
+    type: actions.UPDATE_ROOM.SUCCESS,
+    payload: {
+      title,
+      lecturer,
+      password,
+    },
+  };
+}
+
+export function updateRoomFailed() {
+  return {
+    type: actions.UPDATE_ROOM.FAILED,
+  };
+}
+
+export function uploadPDFRequest(data) {
+  return {
+    type: actions.UPLOAD_PDF.REQUEST,
+    payload: {
+      data,
+    },
+  };
+}
+
+export function uploadPDFSuccess(pdfPath) {
+  return {
+    type: actions.UPLOAD_PDF.SUCCESS,
+    payload: {
+      pdfPath,
+    },
+  };
+}
+
+export function uploadPDFFailed() {
+  return {
+    type: actions.UPLOAD_PDF.FAILED,
   };
 }
 
