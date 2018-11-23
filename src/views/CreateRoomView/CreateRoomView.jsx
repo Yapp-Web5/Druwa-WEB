@@ -106,12 +106,12 @@ class CreateRoomView extends Component {
       data.append("uploadfile", files[0]);
       this.props.uploadPDFRequest(data);
     } else {
-      const { _id } = this.props.room;
+      const { url } = this.props.room;
       this.props.updateRoomRequest({
         title,
         lecturer,
         password,
-        roomUrl: _id,
+        roomUrl: url,
       });
     }
   };
