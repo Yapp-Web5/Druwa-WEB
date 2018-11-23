@@ -172,7 +172,7 @@ class RoomView extends Component {
               title={room.title}
               writer={room.lecturer}
               date={moment(room.createdAt).format("YYYY-MM-DD")}
-              link={"?"}
+              link={window.location.href}
             />
           </div>
           <div className={styles.body__right}>
